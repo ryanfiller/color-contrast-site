@@ -17,7 +17,6 @@ export default createSchema({
         }
       ]
     },
-
     {
       title: 'Color Palette',
       name: 'palette',
@@ -33,31 +32,22 @@ export default createSchema({
           name: 'owner',
           type: 'reference',
           to: [{type: 'owner'}]
-        }
+        },
+        {
+          title: 'Colors',
+          name: 'colors',
+          type: 'array',
+          of: [{type: 'color'}]
+        },   
       ]
     },
-
     {
       title: 'Color',
       name: 'color',
-      type: 'document',
+      type: 'object',
       fields: [
-        {
-          title: 'Name',
-          name: 'name',
-          type: 'string'
-        },
-        {
-          title: 'Value',
-          name: 'value',
-          type: 'string'
-        },
-        {
-          title: 'Palette',
-          name: 'palette',
-          type: 'reference',
-          to: [{type: 'palette'}]
-        }
+        {name: 'name', type: 'string', title: 'Name'},
+        {name: 'value', type: 'string', title: 'Value'}
       ]
     }
   ])
