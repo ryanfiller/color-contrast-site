@@ -5,18 +5,34 @@
 </script>
 
 <style>
-	main {
-		position: relative;
-		max-width: 56em;
-		background-color: white;
-		padding: 2em;
-		margin: 0 auto;
+	:global(body),
+	:global(html) {
+		margin: 0;
+		padding: 0;
+		font-size: 12px;
+	}
+
+	:global(*) {
 		box-sizing: border-box;
+	} 
+
+	:global(#content) {
+		display: flex;
+	}
+
+	:global(main) {
+		flex: 5;
+		padding: 1rem;
+	}
+
+	:global(aside) {
+		flex: 1;
+		padding: 1rem 1rem 1rem 0;
 	}
 </style>
 
 <Nav {segment}/>
 
-<main>
+<div id='content'>
 	<slot></slot>
-</main>
+</div>

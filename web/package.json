@@ -16,8 +16,10 @@
     "@sanity/client": "^1.149.18",
     "@sanity/image-url": "^0.140.19",
     "compression": "^1.7.4",
+    "dotenv": "^8.2.0",
     "groq": "^0.147.0",
     "polka": "^1.0.0-next.11",
+    "sapper-environment": "^1.0.1",
     "sirv": "^0.4.2"
   },
   "devDependencies": {
@@ -34,7 +36,7 @@
     "@sanity/block-content-to-hyperscript": "^2.0.10",
     "color-contrast-table-svelte": "^2.2.4",
     "npm-run-all": "^4.1.5",
-    "rollup": "^2.2.0",
+    "rollup": "^2.23.1",
     "rollup-plugin-babel": "^4.0.2",
     "rollup-plugin-svelte": "^5.1.1",
     "rollup-plugin-terser": "^4.0.4",

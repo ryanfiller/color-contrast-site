@@ -1,5 +1,5 @@
 <script context="module">
-  import client from '../sanityClient'
+  import client from '../../sanityClient'
 	export async function preload({ params, query }) {
 
     const owner = params.owner

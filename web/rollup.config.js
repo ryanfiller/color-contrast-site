@@ -7,6 +7,8 @@ import { terser } from 'rollup-plugin-terser';
 import json from '@rollup/plugin-json';
 import config from 'sapper/config/rollup.js';
 import pkg from './package.json';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
@@ -26,6 +28,12 @@ export default {
       replace({
         'process.browser': true,
         'process.env.NODE_ENV': JSON.stringify(mode),
+        // https://linguinecode.com/post/how-to-add-environment-variables-to-your-svelte-js-app
+        process: {
+          env: {
+            SANITY_TOKEN: process.env.SANITY_TOKEN
+          }
+        }
       }),
       svelte({
         dev,

@@ -5,6 +5,7 @@ const { projectId, dataset } = api
 const client = sanityClient({
   projectId,
   dataset,
+  // token: process.env.SANITY_TOKEN,
   useCdn: true
 })
 

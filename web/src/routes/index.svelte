@@ -9,30 +9,34 @@
 
 <script>
 	export let owners = []
+	import NewUser from '../components/new-user.svelte'
 </script>
-
-<style>
-	:global(body),
-	:global(html) {
-		margin: 0;
-		padding: 0;
-	}
-
-	:global(*) {
-		box-sizing: border-box;
-	} 
-</style>
 
 <svelte:head>
 	<title>color-contrast-table</title>
 </svelte:head>
 
-<ul>
-	{#each owners as owner}
-		<li>
-			<a href="{owner.name}">
-				{owner.name}
-			</a>
-		</li>	
-	{/each}
-</ul>
+<style>
+	aside > div {
+		margin: 1rem 0;
+	}
+</style>
+
+<main>
+	<ul>
+		{#each owners as owner}
+			<li>
+				<a href="{owner.name}">
+					{owner.name}
+				</a>
+			</li>	
+		{/each}
+	</ul>
+</main>
+
+<aside>
+	This is the honor system until I add auth, so please just don't mess with anyone's colors that aren't yours.
+	<div>
+		<NewUser />
+	</div>
+</aside>
