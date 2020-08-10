@@ -28,11 +28,13 @@
 	:global(#sapper) {
 		display: flex;
 		flex-direction: column;
-		min-height: 100vh;
+		height: 100vh;
+		font-size: 1.5rem;
 	}
 
 	:global(#content) {
 		flex: 1;
+		overflow-y: auto;
 		padding: calc(2 * var(--borderSize));
 		display: flex;
     justify-content: center;
@@ -59,16 +61,16 @@
     margin-top: 1rem;
   }
 
-	:global(#content span) {
+	:global(#content li span) {
     font-size: 1.5em;
   }
 
-  :global(#content a) {
+  :global(#content li a) {
     text-decoration: none;
     display: block;
   }
 
-  :global(#content a:hover > span:after) {
+  :global(#content li a:hover > span:after) {
     content: ' »';
   }
 </style>

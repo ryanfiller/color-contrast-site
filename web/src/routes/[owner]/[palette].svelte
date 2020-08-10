@@ -46,7 +46,7 @@
       // fill this in in a second
     },
     {
-      text: 'see code',
+      text: 'see JSON',
       title: 'seeCode', 
       icon: 'code',
       action: () => activeAction.set('seeCode')
