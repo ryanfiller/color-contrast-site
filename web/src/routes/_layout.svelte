@@ -5,8 +5,9 @@
 
 <style>
 	:root {
-		--primaryColor: #212121;
-		--secondaryColor: #ffffff;
+		/* these can be changed with action buttons */
+		/* --backgroundColor: #212121; */
+		/* --textColor: #ffffff; */
 		--borderSize: .5rem;
 	}
 
@@ -15,22 +16,32 @@
 		margin: 0;
 		padding: 0;
 		font-size: 12px;
-		color: var(--primaryColor);
-		background: var(--secondaryColor);
+		color: var(--backgroundColor);
+		background: var(--textColor);
 	}
 
 	:global(*) {
 		box-sizing: border-box;
 	} 
 
+	:global(#sapper) {
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+	}
+
 	:global(#content) {
+		flex: 1;
 		padding: calc(2 * var(--borderSize));
+		display: flex;
+    justify-content: center;
+    align-items: center;
 	}
 
 	header {
 		font-size: 1.5rem;
 		padding: calc(2 * var(--borderSize));
-		border-bottom: var(--borderSize) solid var(--primaryColor);
+		border-bottom: var(--borderSize) solid var(--backgroundColor);
 		display: flex;
 		align-items: center;
 		justify-content: space-between;

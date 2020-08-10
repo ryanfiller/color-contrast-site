@@ -29,8 +29,8 @@
 
 	li:last-child a {
 		font-weight: bold;
-		color: var(--secondaryColor);
-		background: var(--primaryColor);
+		color: var(--textColor);
+		background: var(--backgroundColor);
 		padding: .25em;
 	}
 

@@ -4,12 +4,7 @@
 </script>
 
 <style>
-  /* #table {
-    width: 100%;
-  } */
-
   :global(#table table) {
-    width: 100%;
     position: relative;
   }
 

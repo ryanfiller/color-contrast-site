@@ -1,15 +1,14 @@
 <script>
-  import { onMount } from 'svelte'
+  import { onMount, beforeUpdate } from 'svelte' 
   import { actions } from '../stores.js'
+  import Button from './button.svelte'
+  import DarkMode from './dark-mode.svelte'
 
   import Add from '../../static/icons/add.svg'
   import Code from '../../static/icons/code.svg'
   import Download from '../../static/icons/download.svg'
   import Edit from '../../static/icons/edit.svg'
   import Save from '../../static/icons/save.svg'
-  
-  import Sun from '../../static/icons/sun.svg'
-  import Moon from '../../static/icons/moon.svg'
 
   const icons = {
     add: Add,
@@ -23,22 +22,6 @@
   const unsubscribe = actions.subscribe(actions => {
     buttons = actions
   })
-
-  let localStorage
-  let darkMode
-  let setDarkMode
-  
-  onMount(() => {
-    localStorage = window.localStorage
-    darkMode = localStorage.getItem('darkMode')
-
-    setDarkMode = () => {
-      darkMode = !darkMode
-      localStorage.setItem('darkMode', darkMode);
-    }
-  })
-
-  $: icons.mode = darkMode ? Sun : Moon
 </script>
 
 <style>
@@ -48,44 +31,20 @@
     padding: 0;
     list-style: none;
   }
-
-  button {
-    border: none;
-    background: var(--primaryColor);
-    padding: var(--borderSize);
-    cursor: pointer;
-    border-radius: 50%;
-    margin-left: 1rem;
-  }
-
-  button :global(svg) {
-    display: block;
-    height: 1.25rem;
-    width: 1.25rem;
-  }
-
-  button :global(svg * ) {
-    fill: var(--secondaryColor);
-  }
 </style>
 
 <ul>
   {#each buttons as button}
     <li>
-      <button
+      <Button
         title={button.text}
-        on:click={button.action}
+        action={button.action}
       >
         <svelte:component this={icons[button.icon]}/>
-      </button>
+      </Button>
     </li>
   {/each}
   <li>
-    <button
-      title='toggle dark mode'
-      on:click={setDarkMode}
-    >
-      <svelte:component this={icons['mode']}/>
-    </button>
+    <DarkMode />
   </li>
 </ul>
