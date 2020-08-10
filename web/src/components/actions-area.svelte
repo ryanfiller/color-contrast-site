@@ -70,18 +70,6 @@
     width: 50ch;
   }
 
-  input:focus,
-  textarea:focus {
-    outline: none;
-  }
-
-  input:focus + span,
-  textarea:focus + span {
-    text-decoration: underline;
-    font-weight: bold;
-  }
-  
-
 </style>
 
 {#if !!action}

@@ -9,7 +9,7 @@
   })
 
   colorPalette.set(colors)
-  
+
   $: editable = action === 'editColors'
 </script>
 
@@ -26,6 +26,11 @@
     position: sticky;
     left: 0;
     z-index: 100;
+  }
+
+  :global(#table table input:focus) {
+    outline: unset !important;
+    box-shadow: none !important;
   }
 </style>
 

@@ -6,34 +6,54 @@
 </script>
 
 <style>
-	h1, p {
-		margin: 0 auto;
+	div {
+		font-size: 5em;
+		text-align: center;
+		z-index: 1;
 	}
 
-	h1 {
-		font-size: 2.8em;
-		font-weight: 700;
-		margin: 0 0 0.5em 0;
-	}
-
+	h1,
 	p {
-		margin: 1em auto;
+		margin: 0;
 	}
 
-	@media (min-width: 480px) {
-		h1 {
-			font-size: 4em;
-		}
+	.video {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		overflow: hidden;
+		z-index: 0;
+	}
+
+	video {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: auto;
+		min-height: 100vh;
+		height: auto;
+		min-width: 100vw;
+		opacity: .25;
 	}
 </style>
 
 <svelte:head>
-	<title>{status}</title>
+	<title>Ouch! | {status}</title>
 </svelte:head>
 
-<h1>{status}</h1>
+<div>
+	<h1>{status}</h1>
+	<p>{error.message}</p>
+</div>
 
-<p>{error.message}</p>
+<div class="video">
+	<video autoplay loop>
+		<source src='/giphy.mp4' type='video/mp4'>
+	</video> 
+</div>
 
 {#if dev && error.stack}
 	<pre>{error.stack}</pre>

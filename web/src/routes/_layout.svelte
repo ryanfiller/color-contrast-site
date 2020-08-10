@@ -25,6 +25,12 @@
 		box-sizing: border-box;
 	} 
 
+	:global(*:focus) {
+		--shadowSize: calc(.5 * var(--borderSize));
+		outline: none;
+		box-shadow: 0 var(--shadowSize) 0 deeppink;
+	} 
+
 	:global(#sapper) {
 		display: flex;
 		flex-direction: column;
@@ -32,14 +38,6 @@
 		font-size: 1.5rem;
 	}
 
-	:global(#content) {
-		flex: 1;
-		overflow-y: auto;
-		padding: calc(2 * var(--borderSize));
-		display: flex;
-    justify-content: center;
-    align-items: center;
-	}
 
 	header {
 		font-size: 1.5rem;
@@ -49,28 +47,46 @@
 		align-items: center;
 		justify-content: space-between;
 	}
+	
+	main {
+		flex: 1;
+		overflow-y: auto;
+		padding: calc(2 * var(--borderSize));
+		display: flex;
+    justify-content: center;
+    align-items: center;
+		position: relative;
+	}
 
 	/* list styles */
 
-	:global(#content ul) {
+	:global(main > p) {
+		font-size: 2em;
+		text-align: center;
+	}
+
+	:global(main ul) {
     list-style: none;
     padding: 0;
+		width: 100%;
+		max-width: 80ch;
+		column-count: 2;
   }
 
-  :global(#content li + li) {
+  :global(main li + li) {
     margin-top: 1rem;
   }
 
-	:global(#content li span) {
+	:global(main li span) {
     font-size: 1.5em;
   }
 
-  :global(#content li a) {
+  :global(main li a) {
     text-decoration: none;
     display: block;
   }
 
-  :global(#content li a:hover > span:after) {
+  :global(main li a:hover > span:after) {
     content: ' »';
   }
 </style>
@@ -80,9 +96,9 @@
 	<ActionsButtons />
 </header>
 
-<div id='content'>
+<main id='content'>
 	<slot></slot>
-</div>
+</main>
 
 <footer>
 	<ActionsArea />

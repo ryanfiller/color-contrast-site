@@ -27,7 +27,10 @@
 	<title>color-contrast-table</title>
 </svelte:head>
 
-<main>
+
+{#if !owners.length}
+	<p>uh oh, there are no users. create one!</p>
+{:else}
 	<ul>
 		{#each owners as owner}
 			<li>
@@ -37,4 +40,4 @@
 			</li>	
 		{/each}
 	</ul>
-</main>
+{/if}

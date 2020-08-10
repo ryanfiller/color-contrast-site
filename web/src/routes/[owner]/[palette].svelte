@@ -82,4 +82,8 @@
   <title>{title} | color-contrast-table</title>
 </svelte:head>
 
-<Chart colors={colors} />
+{#if !colors.length}
+	<p>uh oh, this palette doesn't have any colors yet.</p>
+{:else}
+	<Chart colors={colors} />
+{/if}

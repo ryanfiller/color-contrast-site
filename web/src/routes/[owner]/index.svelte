@@ -53,17 +53,21 @@
   }
 </style>
 
-<ul>
-  {#each palettes as palette}
-    <li>
-      <a href='{owner}/{palette.title}'>
-        <span>{palette.title}</span>
-        <div>
-          {#each palette.colors as color}
-            <span style="background-color: {color.value}" />
-          {/each}
-        </div>
-      </a>  
-    </li>
-  {/each}
-</ul>
+{#if !palettes.length}
+	<p>uh oh, you have no color palettes. create one!</p>
+{:else}
+	<ul>
+    {#each palettes as palette}
+      <li>
+        <a href='{owner}/{palette.title}'>
+          <span>{palette.title}</span>
+          <div>
+            {#each palette.colors as color}
+              <span style="background-color: {color.value}" />
+            {/each}
+          </div>
+        </a>  
+      </li>
+    {/each}
+  </ul>
+{/if}
