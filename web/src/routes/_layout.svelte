@@ -1,5 +1,5 @@
 <script>
-	import Nav from '../components/nav.svelte'
+	import Breadcrumbs from '../components/breadcrumbs.svelte'
 	import Actions from '../components/actions.svelte'
 </script>
 
@@ -73,7 +73,7 @@
 </style>
 
 <header>
-	<Nav />
+	<Breadcrumbs />
 	<Actions />
 </header>
 
