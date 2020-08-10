@@ -34,7 +34,7 @@
 		{#each owners as owner}
 			<li>
 				<a href="{owner.name}">
-					{owner.name}
+					<span>{owner.name}</span>
 				</a>
 			</li>	
 		{/each}

@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from 'svelte'
   import { actions } from '../stores.js'
 
   import Add from '../../static/icons/add.svg'
@@ -6,19 +7,38 @@
   import Download from '../../static/icons/download.svg'
   import Edit from '../../static/icons/edit.svg'
   import Save from '../../static/icons/save.svg'
+  
+  import Sun from '../../static/icons/sun.svg'
+  import Moon from '../../static/icons/moon.svg'
 
   const icons = {
     add: Add,
     code: Code,
     download: Download,
     edit: Edit,
-    save: Save
+    save: Save,
   }
 
   let buttons
   const unsubscribe = actions.subscribe(actions => {
     buttons = actions
   })
+
+  let localStorage
+  let darkMode
+  let setDarkMode
+  
+  onMount(() => {
+    localStorage = window.localStorage
+    darkMode = localStorage.getItem('darkMode')
+
+    setDarkMode = () => {
+      darkMode = !darkMode
+      localStorage.setItem('darkMode', darkMode);
+    }
+  })
+
+  $: icons.mode = darkMode ? Sun : Moon
 </script>
 
 <style>
@@ -60,4 +80,12 @@
       </button>
     </li>
   {/each}
+  <li>
+    <button
+      title='toggle dark mode'
+      on:click={setDarkMode}
+    >
+      <svelte:component this={icons['mode']}/>
+    </button>
+  </li>
 </ul>

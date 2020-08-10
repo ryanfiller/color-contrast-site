@@ -35,6 +35,30 @@
 		align-items: center;
 		justify-content: space-between;
 	}
+
+	/* list styles */
+
+	:global(#content ul) {
+    list-style: none;
+    padding: 0;
+  }
+
+  :global(#content li + li) {
+    margin-top: 1rem;
+  }
+
+	:global(#content span) {
+    font-size: 1.5em;
+  }
+
+  :global(#content a) {
+    text-decoration: none;
+    display: block;
+  }
+
+  :global(#content a:hover > span:after) {
+    content: ' »';
+  }
 </style>
 
 <header>

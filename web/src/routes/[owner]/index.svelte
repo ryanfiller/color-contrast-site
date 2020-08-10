@@ -26,9 +26,9 @@
 		onMount(() => {
 		actions.set([
 			{
-				text: 'add a palette',
+				text: 'add a color palette',
 				icon: 'add',
-				action: () => console.log('add a palette')
+				action: () => console.log('add a color palette')
 			}
 		])
 	})
@@ -39,27 +39,8 @@
 </svelte:head>
 
 <style>
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-
-  li + li {
-    margin-top: 1rem;
-  }
-
-  a {
-    text-decoration: none;
-    display: block;
-  }
-
-  a:hover > span:after {
-    content: ' »';
-  }
-
   span {
     display: block;
-    font-size: 1.5em;
   }
 
   div {
@@ -68,7 +49,7 @@
 
   div span {
     flex: 1;
-    height: 2rem;
+    height: 1rem;
   }
 </style>
 
