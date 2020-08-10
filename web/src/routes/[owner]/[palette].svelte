@@ -25,40 +25,57 @@
 
 <script>
   import { onMount } from 'svelte'
-  import { actions } from '../../stores.js'
+  import { actions, activeAction } from '../../stores.js'
   import Chart from '../../components/chart.svelte'
   export let title = ''
   export let colors = []
 
-  onMount(() => {
-		actions.set([
-			{
-				text: 'add a color',
-				icon: 'add',
-				action: () => console.log('add a color')
-      },
-      {
-				text: 'edit colors',
-				icon: 'edit',
-				action: () => console.log('edit colors')
-      },
-      {
-				text: 'save',
-				icon: 'save',
-				action: () => console.log('save')
-      },
-      {
-				text: 'see code',
-				icon: 'code',
-				action: () => console.log('see code')
-      },
-      // {
-			// 	text: 'download svg',
-			// 	icon: 'download',
-			// 	action: () => console.log('download svg')
-			// }
-		])
-	})
+  let action
+  activeAction.subscribe(currentAction => {
+    action = currentAction
+  })
+
+		const buttons = [
+    {
+      text: 'add a color',
+      title: 'addColor', 
+      icon: 'add',
+      action: () => activeAction.set('addColor')
+    },
+    {
+      // fill this in in a second
+    },
+    {
+      text: 'see code',
+      title: 'seeCode', 
+      icon: 'code',
+      action: () => activeAction.set('seeCode')
+    },
+    // {
+    // 	text: 'download svg',
+    //  title: 'downloadSvg', 
+    // 	icon: 'download',
+    // 	action: () => activeAction.set('downloadSvg')
+    // }
+  ]
+
+  $: if (action === 'editColors') {
+    buttons[1] = {
+      text: 'save',
+      icon: 'save',
+      active: true,
+      action: () => activeAction.set('')
+    }
+  } else {
+    buttons[1] = {
+      text: 'edit colors',
+      title: 'editColors', 
+      icon: 'edit',
+      action: () => activeAction.set('editColors')
+    }
+  }
+    
+  $: actions.set([...buttons])
 </script>
 
 <svelte:head>

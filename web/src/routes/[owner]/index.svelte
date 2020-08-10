@@ -22,16 +22,16 @@
   export let palettes = []
 
   import { onMount } from 'svelte'
-	import { actions } from '../../stores.js'
-		onMount(() => {
-		actions.set([
-			{
-				text: 'add a color palette',
-				icon: 'add',
-				action: () => console.log('add a color palette')
-			}
-		])
-	})
+  import { actions, activeAction } from '../../stores.js'
+  
+  actions.set([
+    {
+      text: 'add a color palette',
+      title: 'addPalette',
+      icon: 'add',
+      action: () => activeAction.set('addPalette')
+    }
+  ])
 </script>
 
 <svelte:head>

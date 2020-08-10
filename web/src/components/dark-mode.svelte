@@ -10,7 +10,7 @@
   let root
 
   const dark = '#212121'
-  const light = '#ffffff'
+  const light = '#efefef'
   
   const checkDarkMode = () => {
     return localStorage && localStorage.getItem('darkMode') === 'true' ? true : false

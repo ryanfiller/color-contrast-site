@@ -1,6 +1,6 @@
 <script>
   import { onMount, beforeUpdate } from 'svelte' 
-  import { actions } from '../stores.js'
+  import { actions, activeAction } from '../stores.js'
   import Button from './button.svelte'
   import DarkMode from './dark-mode.svelte'
 
@@ -19,9 +19,15 @@
   }
 
   let buttons
-  const unsubscribe = actions.subscribe(actions => {
+  let currentAction
+  actions.subscribe(actions => {
     buttons = actions
   })
+
+  activeAction.subscribe(activeAction => {
+    currentAction = activeAction
+  })
+
 </script>
 
 <style>
@@ -39,6 +45,7 @@
       <Button
         title={button.text}
         action={button.action}
+        active={button.active || currentAction === button.title}
       >
         <svelte:component this={icons[button.icon]}/>
       </Button>

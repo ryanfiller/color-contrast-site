@@ -1,6 +1,7 @@
 <script>
 	import Breadcrumbs from '../components/breadcrumbs.svelte'
-	import Actions from '../components/actions.svelte'
+	import ActionsButtons from '../components/actions-buttons.svelte'
+	import ActionsArea from '../components/actions-area.svelte'
 </script>
 
 <style>
@@ -74,9 +75,13 @@
 
 <header>
 	<Breadcrumbs />
-	<Actions />
+	<ActionsButtons />
 </header>
 
 <div id='content'>
 	<slot></slot>
 </div>
+
+<footer>
+	<ActionsArea />
+</footer>

@@ -9,20 +9,18 @@
 
 <script>
 	import { onMount } from 'svelte'
-	import { actions } from '../stores.js'
-	// import NewUser from '../components/new-user.svelte'
+	import { actions, activeAction } from '../stores.js'
 
 	export let owners = []
 
-	onMount(() => {
-		actions.set([
-			{
-				text: 'add a user',
-				icon: 'add',
-				action: () => console.log('add a user')
-			}
-		])
-	})
+	actions.set([
+		{
+			title: 'addUser',
+			text: 'add a user',
+			icon: 'add',
+			action: () => activeAction.set('addUser')
+		}
+	])
 </script>
 
 <svelte:head>
@@ -40,5 +38,3 @@
 		{/each}
 	</ul>
 </main>
-
-<!-- <NewUser /> -->
