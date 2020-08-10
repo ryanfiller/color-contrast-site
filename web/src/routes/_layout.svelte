@@ -66,15 +66,18 @@
 	}
 
 	:global(main ul) {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(30ch, 1fr));
+		grid-template-rows: auto;
+		gap: calc(2 * var(--borderSize));
     list-style: none;
     padding: 0;
 		width: 100%;
-		max-width: 80ch;
-		column-count: 2;
-  }
+		max-width: 100ch;
+	}
 
-  :global(main li + li) {
-    margin-top: 1rem;
+	:global(main ul li) {
+		text-align: center;
   }
 
 	:global(main li span) {
