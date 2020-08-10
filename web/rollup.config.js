@@ -6,7 +6,9 @@ import babel from 'rollup-plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 import json from '@rollup/plugin-json';
 import config from 'sapper/config/rollup.js';
+import svelteSVG from "rollup-plugin-svelte-svg";
 import pkg from './package.json';
+
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -40,6 +42,7 @@ export default {
         hydratable: true,
         emitCss: true,
       }),
+      svelteSVG({ dev }),
       resolve({
         browser: true,
         dedupe,
@@ -92,6 +95,7 @@ export default {
         generate: 'ssr',
         dev,
       }),
+      svelteSVG({ generate: "ssr", dev }),
       resolve({
         dedupe,
       }),

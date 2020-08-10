@@ -1,6 +1,16 @@
+<script context="module">
+  export async function preload(_page, session) {
+    const { SANITY_TOKEN } = session
+    return { token: SANITY_TOKEN }
+  }
+</script>
+
+
 <script>
   import client from '../sanityClient'
-  import { goto } from '@sapper/app';
+  import { goto } from '@sapper/app'
+
+  export let token
 
   let newUser = ''
   let newUserCreated = ''
@@ -12,7 +22,7 @@
       name: newUser
     }
 
-    client.create(owner).then(response => {
+    client().create(owner).then(response => {
       newUserCreated = response.name
       console.log(`new ownder created: ${response.name}, ${response._id}`)
     }).catch(response => {

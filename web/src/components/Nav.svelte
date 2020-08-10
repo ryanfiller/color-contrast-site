@@ -1,58 +1,53 @@
 <script>
-	export let segment;
+	import { stores } from '@sapper/app'
+	const { page } = stores()
+	// const params = $page.params
+	let params
+
+	$: params = $page.params
 </script>
 
 <style>
-	nav {
-		border-bottom: 1px solid rgba(255,62,0,0.1);
-		font-weight: 300;
-		padding: 0 1em;
-	}
+	nav {}
 
 	ul {
 		margin: 0;
 		padding: 0;
-	}
-
-	/* clearfix */
-	ul::after {
-		content: '';
-		display: block;
-		clear: both;
+		list-style: none;
+		display: flex;
 	}
 
 	li {
-		display: block;
-		float: left;
-	}
-
-	.selected {
-		position: relative;
 		display: inline-block;
+		margin-right: 1rem;
 	}
 
-	.selected::after {
-		position: absolute;
-		content: '';
-		width: calc(100% - 1em);
-		height: 2px;
-		background-color: rgb(255,62,0);
-		display: block;
-		bottom: -1px;
+	li:not(:last-child):after {
+		content: '»';
+		margin-left: 1rem;
+	}
+
+	li:last-child a {
+		font-weight: bold;
+		color: var(--secondaryColor);
+		background: var(--primaryColor);
+		padding: .25em;
 	}
 
 	a {
 		text-decoration: none;
-		padding: 1em 0.5em;
-		display: block;
 	}
+
 </style>
 
 <nav>
 	<ul>
-		<li><a class='{segment === undefined ? "selected" : ""}' href='.'>home</a></li>
-		<!-- for the blog link, we're using rel=prefetch so that Sapper prefetches
-		     the blog data when we hover over the link or tap it on a touchscreen -->
-		<!-- <li><a rel=prefetch class='{segment === "blog" ? "selected" : ""}' href='blog'>blog</a></li> -->
+		<li><a href='/'>home</a></li>
+		{#if params.owner}
+			<li><a href={`/${params.owner}`}>{params.owner}</a></li>
+		{/if}
+		{#if params.palette}
+			<li><a href={`/${params.owner}/${params.palette}`}>{params.palette}</a></li>
+		{/if}
 	</ul>
 </nav>

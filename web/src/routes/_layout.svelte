@@ -1,15 +1,22 @@
 <script>
-	import Nav from '../components/Nav.svelte';
-
-	export let segment;
+	import Nav from '../components/nav.svelte'
+	import Actions from '../components/actions.svelte'
 </script>
 
 <style>
+	:root {
+		--primaryColor: #212121;
+		--secondaryColor: #ffffff;
+		--borderSize: .5rem;
+	}
+
 	:global(body),
 	:global(html) {
 		margin: 0;
 		padding: 0;
 		font-size: 12px;
+		color: var(--primaryColor);
+		background: var(--secondaryColor);
 	}
 
 	:global(*) {
@@ -17,21 +24,23 @@
 	} 
 
 	:global(#content) {
+		padding: calc(2 * var(--borderSize));
+	}
+
+	header {
+		font-size: 1.5rem;
+		padding: calc(2 * var(--borderSize));
+		border-bottom: var(--borderSize) solid var(--primaryColor);
 		display: flex;
-	}
-
-	:global(main) {
-		flex: 5;
-		padding: 1rem;
-	}
-
-	:global(aside) {
-		flex: 1;
-		padding: 1rem 1rem 1rem 0;
+		align-items: center;
+		justify-content: space-between;
 	}
 </style>
 
-<Nav {segment}/>
+<header>
+	<Nav />
+	<Actions />
+</header>
 
 <div id='content'>
 	<slot></slot>

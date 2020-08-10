@@ -6,7 +6,7 @@
     const sanityQuery = '*[_type == "palette" && owner._ref in *[_type=="owner" && name==$owner]._id ]'
     const sanityParams = { owner: owner }
 
-    const palettes = await client.fetch(sanityQuery, sanityParams)
+    const palettes = await client().fetch(sanityQuery, sanityParams)
       .then(palettes => palettes)
       .catch(err => this.error(500, err))
 
@@ -20,6 +20,18 @@
 <script>
   export let owner = ''
   export let palettes = []
+
+  import { onMount } from 'svelte'
+	import { actions } from '../../stores.js'
+		onMount(() => {
+		actions.set([
+			{
+				text: 'add a palette',
+				icon: 'add',
+				action: () => console.log('add a palette')
+			}
+		])
+	})
 </script>
 
 <svelte:head>
