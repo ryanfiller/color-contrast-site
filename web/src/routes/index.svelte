@@ -1,7 +1,7 @@
 <script context="module">
   import client from '../sanityClient'
 	export function preload({ params, query }) {
-    return client().fetch('*[_type == "owner"]').then(owners => {
+    return client.fetch('*[_type == "owner"]').then(owners => {
 			return { owners }
 		}).catch(err => this.error(500, err))
 	}
@@ -34,7 +34,7 @@
 	<ul>
 		{#each owners as owner}
 			<li>
-				<a href="{owner.name}">
+				<a href='/{owner.name}'>
 					<span>{owner.name}</span>
 				</a>
 			</li>	

@@ -1,12 +1,11 @@
 <script context="module">
   import client from '../../sanityClient'
 	export async function preload({ params, query }) {
-
     const owner = params.owner
     const sanityQuery = '*[_type == "palette" && owner._ref in *[_type=="owner" && name==$owner]._id ]'
     const sanityParams = { owner: owner }
 
-    const palettes = await client().fetch(sanityQuery, sanityParams)
+    const palettes = await client.fetch(sanityQuery, sanityParams)
       .then(palettes => palettes)
       .catch(err => this.error(500, err))
 
@@ -16,6 +15,7 @@
     }
 	}
 </script>
+
 
 <script>
   export let owner = ''
@@ -59,7 +59,7 @@
 	<ul>
     {#each palettes as palette}
       <li>
-        <a href='{owner}/{palette.title}'>
+        <a href='/{owner}/{palette.title}'>
           <span>{palette.title}</span>
           <div>
             {#each palette.colors as color}

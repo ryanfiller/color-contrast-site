@@ -18,6 +18,7 @@
     "compression": "^1.7.4",
     "dotenv": "^8.2.0",
     "groq": "^0.147.0",
+    "netlify-lambda": "^2.0.1",
     "polka": "^1.0.0-next.11",
     "sapper-environment": "^1.0.1",
     "sirv": "^0.4.2"

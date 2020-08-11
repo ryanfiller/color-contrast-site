@@ -7,7 +7,7 @@
 <style>
   button {
     background: var(--textColor);
-    padding: var(--borderSize);
+    padding: calc(.5 * var(--borderSize));
     border: calc(.5 * var(--borderSize)) solid var(--backgroundColor);
     cursor: pointer;
     border-radius: 50%;
@@ -16,8 +16,8 @@
 
   button :global(svg) {
     display: block;
-    height: 1rem;
-    width: 1rem;
+    height: 1.25rem;
+    width: 1.25rem;
   }
 
   button :global(svg * ) {

@@ -16,10 +16,12 @@
 <style>
   #table {
     font-size: 1em;
+    width: 100%;
   }
 
   :global(#table table) {
     position: relative;
+    width: 100%;
   }
 
   :global(#table th) {

@@ -43,11 +43,13 @@
 <nav>
 	<ul>
 		<li><a href='/'>home</a></li>
-		{#if params.owner}
-			<li><a href={`/${params.owner}`}>{params.owner}</a></li>
-		{/if}
-		{#if params.palette}
-			<li><a href={`/${params.owner}/${params.palette}`}>{params.palette}</a></li>
+		{#if params}
+			{#if params.owner}
+				<li><a href={`/${params.owner}`}>{params.owner}</a></li>
+			{/if}
+			{#if params.palette}
+				<li><a href={`/${params.owner}/${params.palette}`}>{params.palette}</a></li>
+			{/if}
 		{/if}
 	</ul>
 </nav>

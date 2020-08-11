@@ -6,7 +6,7 @@
     const sanityQuery = '*[_type == "palette" && owner._ref in *[_type=="owner" && name==$owner]._id && title == $title ][0]'
     const sanityParams = { owner, title }
 
-    const colors = await client().fetch(sanityQuery, sanityParams)
+    const colors = await client.fetch(sanityQuery, sanityParams)
       .then(palette => palette.colors.map(color => {
         return {
           name: color.name,
