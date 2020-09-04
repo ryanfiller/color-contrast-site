@@ -1,5 +1,5 @@
 [build]
   base = "/"
   command = "npm run build"
-  publish = "/public/"
+  publish = "/public"
   functions = "//web/api"
