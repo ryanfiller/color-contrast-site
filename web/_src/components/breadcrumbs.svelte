@@ -1,10 +1,10 @@
 <script>
-	// import { stores } from '@sapper/app'
-	// const { page } = stores()
-	// // const params = $page.params
-	// let params
+	import { stores } from '@sapper/app'
+	const { page } = stores()
+	// const params = $page.params
+	let params
 
-	// $: params = $page.params
+	$: params = $page.params
 </script>
 
 <style>
@@ -27,14 +27,14 @@
 		margin-left: 1rem;
 	}
 
-	:global(nav li:last-child a) {
+	li:last-child a {
 		font-weight: bold;
 		color: var(--textColor);
 		background: var(--backgroundColor);
 		padding: .25em;
 	}
 
-	:global(nav a) {
+	a {
 		text-decoration: none;
 	}
 
@@ -43,13 +43,13 @@
 <nav>
 	<ul>
 		<li><a href='/'>home</a></li>
-		<!-- {#if params}
+		{#if params}
 			{#if params.owner}
 				<li><a href={`/${params.owner}`}>{params.owner}</a></li>
 			{/if}
 			{#if params.palette}
 				<li><a href={`/${params.owner}/${params.palette}`}>{params.palette}</a></li>
 			{/if}
-		{/if} -->
+		{/if}
 	</ul>
 </nav>
