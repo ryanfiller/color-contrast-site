@@ -1,5 +1,5 @@
 <script>
-	import { Navigate } from 'svelte-router-spa'
+	import { url } from '@sveltech/routify'
 	import client from '../sanityClient'
 	import { actions, activeAction } from '../stores.js'
 	import Layout from '../layout.svelte'
@@ -35,10 +35,9 @@
 				{#each owners as owner}
 					<li>
 						<!-- <a href='{owner.name}'> -->
-						<Navigate to='{owner.name}'>
+						<a href={$url('/:owner', {owner: owner.name})}>
 							<span>{owner.name}</span>
-						<!-- </a> -->
-						</Navigate>
+						</a>
 					</li>	
 				{/each}
 			</ul>

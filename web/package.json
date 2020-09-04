@@ -3,9 +3,10 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "start": "sirv public"
+    "dev": "routify -c serve",
+    "serve": "rollup -c -w",
+    "build": "routify -b && rollup -c",
+    "start": "sirv public --single"
   },
   "dependencies": {
     "@sanity/client": "^1.149.18",
@@ -16,13 +17,13 @@
     "netlify-lambda": "^2.0.1",
     "polka": "^1.0.0-next.11",
     "sirv": "^0.4.2",
-    "sirv-cli": "^1.0.0",
-    "svelte-router-spa": "^5.7.3"
+    "sirv-cli": "^1.0.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^12.0.0",
     "@rollup/plugin-json": "^4.0.0",
     "@rollup/plugin-node-resolve": "^8.0.0",
+    "@sveltech/routify": "^1.9.9",
     "rollup": "^2.3.4",
     "rollup-plugin-livereload": "^1.0.0",
     "rollup-plugin-svelte": "^5.0.3",
