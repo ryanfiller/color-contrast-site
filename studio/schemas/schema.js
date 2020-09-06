@@ -6,14 +6,22 @@ export default createSchema({
   name: 'ColorContrastSite',
   types: schemaTypes.concat([
     {
-      title: "Owner",
-      name: "owner",
-      type: "document",
+      title: 'Owner',
+      name: 'owner',
+      type: 'document',
       fields: [
         {
-          title: "Name",
-          name: "name",
-          type: "string",
+          title: 'Name',
+          name: 'name',
+          type: 'string',
+        },
+        {
+          title: 'Slug',
+          name: 'slug',
+          type: 'slug',
+          options: {
+            source: 'name',
+          }
         }
       ]
     },
@@ -26,7 +34,15 @@ export default createSchema({
           title: 'Title',
           name: 'title',
           type: 'string'
-        },    
+        },
+        {
+          title: 'Slug',
+          name: 'slug',
+          type: 'slug',
+          options: {
+            source: 'title',
+          }
+        },
         {
           title: 'Owner',
           name: 'owner',
