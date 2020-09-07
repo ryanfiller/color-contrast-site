@@ -1,5 +1,5 @@
 [build]
   base = "/"
   command = "npm run build"
-  publish = "//web/__sapper__/export"
+  publish = "//web/public"
   functions = "//web/api"

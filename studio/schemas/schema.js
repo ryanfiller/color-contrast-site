@@ -18,10 +18,7 @@ export default createSchema({
         {
           title: 'Slug',
           name: 'slug',
-          type: 'slug',
-          options: {
-            source: 'name',
-          }
+          type: 'string'
         }
       ]
     },
@@ -38,10 +35,7 @@ export default createSchema({
         {
           title: 'Slug',
           name: 'slug',
-          type: 'slug',
-          options: {
-            source: 'title',
-          }
+          type: 'string'
         },
         {
           title: 'Owner',

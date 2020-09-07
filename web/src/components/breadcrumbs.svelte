@@ -1,10 +1,8 @@
 <script>
-	import { stores } from '@sapper/app'
-	const { page } = stores()
-	// const params = $page.params
-	let params
+	import { url } from '@sveltech/routify'
 
-	$: params = $page.params
+	export let owner
+	export let palette
 </script>
 
 <style>
@@ -27,14 +25,14 @@
 		margin-left: 1rem;
 	}
 
-	li:last-child a {
+	:global(nav li:last-child a) {
 		font-weight: bold;
 		color: var(--textColor);
 		background: var(--backgroundColor);
 		padding: .25em;
 	}
 
-	a {
+	:global(nav a) {
 		text-decoration: none;
 	}
 
@@ -42,14 +40,18 @@
 
 <nav>
 	<ul>
-		<li><a href='/'>home</a></li>
-		{#if params}
-			{#if params.owner}
-				<li><a href={`/${params.owner}`}>{params.owner}</a></li>
+		<li>
+			<a href={$url('/')}>home</a>
+		</li>
+			{#if owner}
+				<li>
+					<a href={$url(`/${owner.slug}`)}>{owner.name}</a>
+				</li>
 			{/if}
-			{#if params.palette}
-				<li><a href={`/${params.owner}/${params.palette}`}>{params.palette}</a></li>
+			{#if palette}
+				<li>
+					<a href={$url(`/${owner.slug}/${palette.slug}`)}>{palette.title}</a>
+				</li>
 			{/if}
-		{/if}
 	</ul>
 </nav>
