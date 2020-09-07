@@ -1,8 +1,5 @@
 <script>
-	export let status;
-	export let error;
-
-	const dev = process.env.NODE_ENV === 'development';
+	import Layout from '../layout.svelte'
 </script>
 
 <style>
@@ -41,20 +38,18 @@
 </style>
 
 <svelte:head>
-	<title>Ouch! | {status}</title>
+	<title>Ouch!</title>
 </svelte:head>
 
-<div>
-	<h1>{status}</h1>
-	<p>{error.message}</p>
-</div>
+<Layout>
+	<div>
+		<h1>404!</h1>
+		<p>Uh oh, this page wasn't found...</p>
+	</div>
 
-<div class="video">
-	<video autoplay loop>
-		<source src='/giphy.mp4' type='video/mp4'>
-	</video> 
-</div>
-
-{#if dev && error.stack}
-	<pre>{error.stack}</pre>
-{/if}
+	<div class="video">
+		<video autoplay loop>
+			<source src='/giphy.mp4' type='video/mp4'>
+		</video> 
+	</div>
+</Layout>

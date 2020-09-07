@@ -1,84 +1,104 @@
-# sapper-template-sanity-mod
+*Looking for a shareable component template? Go here --> [sveltejs/component-template](https://github.com/sveltejs/component-template)*
 
-This is a blog that use [content from sanity.io/create](https://www.sanity.io/create?template=sanity-io%2Fsanity-template-gatsby-blog) with Sapper, a app framework for Svelte.js.
+---
 
-## Original Readme
+# svelte app
 
-The default [Sapper](https://github.com/sveltejs/sapper) template, with branches for Rollup and webpack. To clone it and get started:
+This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
+
+To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
 
 ```bash
-# for Rollup
-npx degit sveltejs/sapper-template#rollup my-app
-# for webpack
-npx degit sveltejs/sapper-template#webpack my-app
-cd my-app
-npm install # or yarn!
+npx degit sveltejs/template svelte-app
+cd svelte-app
+```
+
+*Note that you will need to have [Node.js](https://nodejs.org) installed.*
+
+
+## Get started
+
+Install the dependencies...
+
+```bash
+cd svelte-app
+npm install
+```
+
+...then start [Rollup](https://rollupjs.org):
+
+```bash
 npm run dev
 ```
 
-Open up [localhost:3000](http://localhost:3000) and start clicking around.
+Navigate to [localhost:5000](http://localhost:5000). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.
 
-Consult [sapper.svelte.dev](https://sapper.svelte.dev) for help getting started.
+By default, the server will only respond to requests from localhost. To allow connections from other computers, edit the `sirv` commands in package.json to include the option `--host 0.0.0.0`.
 
-## Structure
 
-Sapper expects to find two directories in the root of your project — `src` and `static`.
+## Building and running in production mode
 
-### src
+To create an optimised version of the app:
 
-The [src](src) directory contains the entry points for your app — `client.js`, `server.js` and (optionally) a `service-worker.js` — along with a `template.html` file and a `routes` directory.
+```bash
+npm run build
+```
 
-#### src/routes
+You can run the newly built app with `npm run start`. This uses [sirv](https://github.com/lukeed/sirv), which is included in your package.json's `dependencies` so that the app will work when you deploy to platforms like [Heroku](https://heroku.com).
 
-This is the heart of your Sapper app. There are two kinds of routes — _pages_, and _server routes_.
 
-**Pages** are Svelte components written in `.html` files. When a user first visits the application, they will be served a server-rendered version of the route in question, plus some JavaScript that 'hydrates' the page and initialises a client-side router. From that point forward, navigating to other pages is handled entirely on the client for a fast, app-like feel. (Sapper will preload and cache the code for these subsequent pages, so that navigation is instantaneous.)
+## Single-page app mode
 
-**Server routes** are modules written in `.js` files, that export functions corresponding to HTTP methods. Each function receives Express `request` and `response` objects as arguments, plus a `next` function. This is useful for creating a JSON API, for example.
+By default, sirv will only respond to requests that match files in `public`. This is to maximise compatibility with static fileservers, allowing you to deploy your app anywhere.
 
-There are three simple rules for naming the files that define your routes:
-
-- A file called `src/routes/about.html` corresponds to the `/about` route. A file called `src/routes/blog/[slug].html` corresponds to the `/blog/:slug` route, in which case `params.slug` is available to the route
-- The file `src/routes/index.html` (or `src/routes/index.js`) corresponds to the root of your app. `src/routes/about/index.html` is treated the same as `src/routes/about.html`.
-- Files and directories with a leading underscore do _not_ create routes. This allows you to colocate helper modules and components with the routes that depend on them — for example you could have a file called `src/routes/_helpers/datetime.js` and it would _not_ create a `/_helpers/datetime` route
-
-### static
-
-The [static](static) directory contains any static assets that should be available. These are served using [sirv](https://github.com/lukeed/sirv).
-
-In your [service-worker.js](app/service-worker.js) file, you can import these as `files` from the generated manifest...
+If you're building a single-page app (SPA) with multiple routes, sirv needs to be able to respond to requests for *any* path. You can make it so by editing the `"start"` command in package.json:
 
 ```js
-import { files } from "../__sapper__/service-worker.js";
+"start": "sirv public --single"
 ```
 
-...so that you can cache them (though you can choose not to, for example if you don't want to cache very large files).
+## Using TypeScript
 
-## Bundler config
-
-Sapper uses Rollup or webpack to provide code-splitting and dynamic imports, as well as compiling your Svelte components. With webpack, it also provides hot module reloading. As long as you don't do anything daft, you can edit the configuration files to add whatever plugins you'd like.
-
-## Production mode and deployment
-
-To start a production version of your app, run `npm run build && npm start`. This will disable live reloading, and activate the appropriate bundler plugins.
-
-You can deploy your application to any environment that supports Node 8 or above. As an example, to deploy to [Now](https://zeit.co/now), run these commands:
+This template comes with a script to set up a TypeScript development environment, you can run it immediately after cloning the template with:
 
 ```bash
-npm install -g now
-now
+node scripts/setupTypeScript.js
 ```
 
-## Using external components with webpack
-
-When using Svelte components installed from npm, such as [@sveltejs/svelte-virtual-list](https://github.com/sveltejs/svelte-virtual-list), Svelte needs the original component source (rather than any precompiled JavaScript that ships with the component). This allows the component to be rendered server-side, and also keeps your client-side app smaller.
-
-Because of that, it's essential that webpack doesn't treat the package as an _external dependency_. You can either modify the `externals` option in [webpack/server.config.js](webpack/server.config.js), or simply install the package to `devDependencies` rather than `dependencies`, which will cause it to get bundled (and therefore compiled) with your app:
+Or remove the script via:
 
 ```bash
-yarn add -D @sveltejs/svelte-virtual-list
+rm scripts/setupTypeScript.js
 ```
 
-## Bugs and feedback
+## Deploying to the web
 
-Sapper is in early development, and may have the odd rough edge here and there. Please be vocal over on the [Sapper issue tracker](https://github.com/sveltejs/sapper/issues).
+### With [Vercel](https://vercel.com)
+
+Install `vercel` if you haven't already:
+
+```bash
+npm install -g vercel
+```
+
+Then, from within your project folder:
+
+```bash
+cd public
+vercel deploy --name my-project
+```
+
+### With [surge](https://surge.sh/)
+
+Install `surge` if you haven't already:
+
+```bash
+npm install -g surge
+```
+
+Then, from within your project folder:
+
+```bash
+npm run build
+surge public my-project.surge.sh
+```

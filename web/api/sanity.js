@@ -8,7 +8,6 @@ const client = sanityClient({
 exports.handler = async function(event, _context, callback) {
   const payload = JSON.parse(event.body)
   const result = await client.create(payload)
-  console.log('result', result)
   callback(null, {
     statusCode: 200,
     body: event.body

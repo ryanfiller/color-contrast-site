@@ -1,7 +1,10 @@
 <script>
-	import Breadcrumbs from '../components/breadcrumbs.svelte'
-	import ActionsButtons from '../components/actions-buttons.svelte'
-	import ActionsArea from '../components/actions-area.svelte'
+	import Breadcrumbs from './components/breadcrumbs.svelte'
+	import ActionsButtons from './components/actions-buttons.svelte'
+	import ActionsArea from './components/actions-area.svelte'
+
+	export let owner
+	export let palette
 </script>
 
 <style>
@@ -31,7 +34,7 @@
 		box-shadow: 0 var(--shadowSize) 0 deeppink;
 	} 
 
-	:global(#sapper) {
+	:global(body) {
 		display: flex;
 		flex-direction: column;
 		height: 100vh;
@@ -95,7 +98,7 @@
 </style>
 
 <header>
-	<Breadcrumbs />
+	<Breadcrumbs {owner} {palette} />
 	<ActionsButtons />
 </header>
 

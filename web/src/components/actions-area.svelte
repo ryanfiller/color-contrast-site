@@ -1,7 +1,8 @@
 <script>
-  import { activeAction, colorPalette } from '../stores.js'
+  import { currentData, activeAction, colorPalette } from '../stores.js'
   import Button from './button.svelte'
   import Save from '../../static/icons/save.svg'
+  import { slugify } from '../helpers.js'
 
   let action
   activeAction.subscribe(currentAction => {
@@ -34,7 +35,7 @@
   let newColor = {name: '', value: ''}
   let jsonCode = ''
 
-  const sanityCreate = data => {
+  const sanityPost = data => {
     fetch('/.netlify/functions/sanity', {
       method: 'POST', 
       credentials: 'same-origin',
@@ -46,10 +47,43 @@
   }
 
   const createNewOwner = () => {
-    sanityCreate({
+    sanityPost({
       _type: 'owner',
       name: newOwner,
+      slug: slugify(newOwner)
     })
+  }
+
+  const createNewPalette = () => {
+    sanityPost({
+      _type: 'palette',
+      title: newPalette,
+      slug: slugify(newPalette),
+      colors: [],
+      owner: {
+        _ref: currentData.user,
+        _type: 'reference'
+      }
+    })
+  }
+
+  const createNewColor = () => {
+    sanityPost({
+      _type: 'palette',
+      id: currentData.palette,
+      mutations: [{
+      patch: {
+        insert: {
+          after: 'colors[-1]',
+          items: [
+            {
+              name: newColor.name,
+              value: newColor.value
+            }
+          ]
+        }
+      }
+    }]})
   }
 </script>
 
@@ -104,7 +138,7 @@
     {#if action === 'addUser'}
       <label for='new-owner'>
         <input 
-          type="text"
+          type='text'
           id='new-owner'
           name='new-owner'
           bind:value={newOwner}
@@ -120,7 +154,7 @@
     {:else if action === 'addPalette'}
       <label for='new-palette'>
         <input 
-          type="text"
+          type='text'
           id='new-palette'
           name='new-palette'
           bind:value={newPalette}
@@ -129,38 +163,34 @@
       </label>
       <Button
         text=''
-        action={() => console.log('button click', newPalette)}
+        action={createNewPalette}
       >
         <Save />
       </Button>
     {:else if action === 'addColor'}
-      <label for='new-color-name'>
-        <input 
-          type="text"
-          id='new-color-name'
-          name='new-color-name'
-          bind:value={newColor.name}
-        />
-        <span>new color name:</span>
-      </label>
+      <div>
+        <label for='new-color-name'>
+          <input 
+            type='text'
+            id='new-color-name'
+            name='new-color-name'
+            bind:value={newColor.name}
+          />
+          <span>new color name:</span>
+        </label>
+        <label for='new-color-value'>
+          <input 
+            type='text'
+            id='new-color-value'
+            name='new-color-value'
+            bind:value={newColor.value}
+          />
+          <span>new color value:</span>
+        </label>
+      </div>
       <Button
         text=''
-        action={() => console.log('button click', newColor)}
-      >
-        <Save />
-      </Button>
-      <label for='new-color-value'>
-        <input 
-          type="text"
-          id='new-color-value'
-          name='new-color-value'
-          bind:value={newColor.value}
-        />
-        <span>new color value:</span>
-      </label>
-      <Button
-        text=''
-        action={() => console.log('button click', newColor)}
+        action={createNewColor}
       >
         <Save />
       </Button>
@@ -170,7 +200,7 @@
       <label for='colors-json'>
         <textarea
           rows={(colors.length * 4) + 1}
-          type="text"
+          type='text'
           id='colors-json'
           name='colors-json'
           value={JSON.stringify(colors, null, '  ')}
