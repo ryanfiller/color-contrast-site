@@ -60,6 +60,31 @@
 		position: relative;
 	}
 
+	footer > span {
+		display: flex;
+		align-items: center;
+		padding: 0;
+	}
+	
+	footer > span:before {
+		content: '';
+		display: block;
+		flex: 1;
+		height: var(--borderSize);
+		background: var(--backgroundColor);
+	}
+
+	footer > span > a {
+		font-size: .75em;
+		line-height: 1;
+		color: var(--backgroundColor);
+		display: inlnie-block;
+		margin: var(--borderSize);
+		position: relative;
+		top: -1px;
+		font-weight: bold;
+	}
+
 	/* list styles */
 
 	:global(main > p) {
@@ -108,4 +133,5 @@
 
 <footer>
 	<ActionsArea />
+	<span><a href='http://ryanfiller.com'>ryanfiller.com</a></span>
 </footer>

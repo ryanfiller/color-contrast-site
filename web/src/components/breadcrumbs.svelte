@@ -27,10 +27,10 @@
 
 	nav a {
 		color: var(--backgroundColor);
+		font-weight: bold;
 	}
 
 	nav li:last-child a {
-		font-weight: bold;
 		color: var(--textColor);
 		background: var(--backgroundColor);
 		padding: .25em;
