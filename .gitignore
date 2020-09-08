@@ -6,3 +6,5 @@
 
 # lerna files
 /lerna-debug.log
+
+# /web/public/build
