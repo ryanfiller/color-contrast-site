@@ -69,10 +69,9 @@
 
   const createNewColor = () => {
     sanityPost({
-      _type: 'palette',
-      id: currentData.palette,
       mutations: [{
-      patch: {
+        patch: {
+        id: currentData.palette,
         insert: {
           after: 'colors[-1]',
           items: [
@@ -114,7 +113,14 @@
     background-color: var(--textColor);
     padding: calc(2 * var(--borderSize));
     border: none;
+    margin: 0;
     font-size: 1.25em;
+  }
+
+  input#new-color-value {
+    padding: 0;
+    height: calc(1.5em + (2 * var(--borderSize)));
+    width: calc(1.5em + (2 * var(--borderSize)));
   }
 
   textarea {
@@ -168,26 +174,24 @@
         <Save />
       </Button>
     {:else if action === 'addColor'}
-      <div>
-        <label for='new-color-name'>
-          <input 
-            type='text'
-            id='new-color-name'
-            name='new-color-name'
-            bind:value={newColor.name}
-          />
-          <span>new color name:</span>
-        </label>
-        <label for='new-color-value'>
-          <input 
-            type='text'
-            id='new-color-value'
-            name='new-color-value'
-            bind:value={newColor.value}
-          />
-          <span>new color value:</span>
-        </label>
-      </div>
+      <label for='new-color-name'>
+        <input 
+          type='text'
+          id='new-color-name'
+          name='new-color-name'
+          bind:value={newColor.name}
+        />
+        <span>new color name:</span>
+      </label>
+      <label for='new-color-value'>
+        <input 
+          type='color'
+          id='new-color-value'
+          name='new-color-value'
+          bind:value={newColor.value}
+        />
+        <span>new color value:</span>
+      </label>
       <Button
         text=''
         action={createNewColor}

@@ -25,15 +25,15 @@
 		margin-left: 1rem;
 	}
 
-	:global(nav li:last-child a) {
+	nav a {
+		color: var(--backgroundColor);
+	}
+
+	nav li:last-child a {
 		font-weight: bold;
 		color: var(--textColor);
 		background: var(--backgroundColor);
 		padding: .25em;
-	}
-
-	:global(nav a) {
-		text-decoration: none;
 	}
 
 </style>

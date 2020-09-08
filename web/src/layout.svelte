@@ -41,7 +41,6 @@
 		font-size: 1.5rem;
 	}
 
-
 	header {
 		font-size: 1.5rem;
 		padding: calc(2 * var(--borderSize));
@@ -84,12 +83,13 @@
   }
 
 	:global(main li span) {
-    font-size: 1.5em;
+		font-size: 1.5em;
   }
 
   :global(main li a) {
     text-decoration: none;
-    display: block;
+		display: block;
+		color: var(--backgroundColor) !important;
   }
 
   :global(main li a:hover > span:after) {
