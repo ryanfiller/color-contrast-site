@@ -18,16 +18,6 @@
     save: Save,
   }
 
-  let buttons
-  let currentAction
-  actions.subscribe(actions => {
-    buttons = actions
-  })
-
-  activeAction.subscribe(activeAction => {
-    currentAction = activeAction
-  })
-
 </script>
 
 <style>
@@ -40,12 +30,12 @@
 </style>
 
 <ul>
-  {#each buttons as button}
+  {#each $actions as button}
     <li>
       <Button
         title={button.text}
         action={button.action}
-        active={button.active || currentAction === button.title}
+        active={button.active || $activeAction === button.title}
       >
         <svelte:component this={icons[button.icon]}/>
       </Button>

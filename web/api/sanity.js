@@ -1,3 +1,4 @@
+require('dotenv').config()
 const sanityClient = require('@sanity/client')
 const client = sanityClient({
   projectId: '4dfvc8wj',

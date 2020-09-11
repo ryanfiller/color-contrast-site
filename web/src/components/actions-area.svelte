@@ -4,11 +4,6 @@
   import Save from '../../static/icons/save.svg'
   import { slugify } from '../helpers.js'
 
-  let action
-  activeAction.subscribe(currentAction => {
-    action = currentAction
-  })
-
   const clickOutside = (node) => {  
     const handleClick = event => {
       if (node && !node.contains(event.target)) {
@@ -20,7 +15,7 @@
   }
 
   const handleClearAction = () => {
-    if (action !== 'editColors' ) {
+    if ($activeAction !== 'editColors' ) {
       return activeAction.set('')
     }
   }
@@ -139,9 +134,9 @@
   }
 </style>
 
-{#if !!action}
+{#if !!$activeAction}
   <section use:clickOutside on:clickOutside={handleClearAction}>
-    {#if action === 'addUser'}
+    {#if $activeAction === 'addUser'}
       <label for='new-owner'>
         <input 
           type='text'
@@ -157,7 +152,7 @@
       >
         <Save />
       </Button>
-    {:else if action === 'addPalette'}
+    {:else if $activeAction === 'addPalette'}
       <label for='new-palette'>
         <input 
           type='text'
@@ -173,7 +168,7 @@
       >
         <Save />
       </Button>
-    {:else if action === 'addColor'}
+    {:else if $activeAction === 'addColor'}
       <label for='new-color-name'>
         <input 
           type='text'
@@ -198,9 +193,9 @@
       >
         <Save />
       </Button>
-    {:else if action === 'editColors'}
+    {:else if $activeAction === 'editColors'}
       click a color name or value to change it
-    {:else if action === 'seeCode'}
+    {:else if $activeAction === 'seeCode'}
       <label for='colors-json'>
         <textarea
           rows={(colors.length * 4) + 1}
