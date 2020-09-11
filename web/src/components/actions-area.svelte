@@ -22,7 +22,7 @@
 
   document.addEventListener('keydown', event => {
     if (event.keyCode === 27) {
-      return handleClearAction()
+      return $actions.current = null
     }
   })
 
@@ -82,6 +82,24 @@
       }
     ])
   }
+
+  const saveColors = () => {
+    sanityPost('mutate', [
+      {
+        createOrReplace: {
+          _id: $data.palette.id,
+          _type: 'palette',
+          title: $data.palette.title,
+          slug: $data.palette.slug,
+          owner: {
+            _ref: $data.owner.id,
+            _type: 'reference'
+          },
+          colors: $data.colors
+        }
+      }
+    ])
+  }
 </script>
 
 <style>
@@ -126,6 +144,7 @@
     box-sizing: border-box;
     resize: none;
     width: 50ch;
+    max-height: 25vh;
   }
 
   section :global(button) {
@@ -137,7 +156,7 @@
   }
 </style>
 
-<!-- TODO - make this submite with enter, reset focus -->
+<!-- TODO - make this submit with enter, reset focus -->
 <!-- TODO - make sure you can't submit duplicate stuff -->
 
 {#if !!$actions.current}
@@ -152,12 +171,7 @@
         />
         <span>add a new user:</span>
       </label>
-      <Button
-        text='save user'
-        action={createNewOwner}
-      >
-        <Save />
-      </Button>
+      <Button text='save user' action={createNewOwner}><Save /></Button>
     {:else if $actions.current === 'addPalette'}
       <label for='new-palette'>
         <input 
@@ -168,12 +182,7 @@
         />
         <span>add a new color palette:</span>
       </label>
-      <Button
-        text=''
-        action={createNewPalette}
-      >
-        <Save />
-      </Button>
+      <Button text='save palette' action={createNewPalette}><Save /></Button>
     {:else if $actions.current === 'addColor'}
       <label for='new-color-name'>
         <input 
@@ -193,14 +202,10 @@
         />
         <span>new color value:</span>
       </label>
-      <Button
-        text=''
-        action={createNewColor}
-      >
-        <Save />
-      </Button>
+      <Button text='save color' action={createNewColor}><Save /></Button>
     {:else if $actions.current === 'editColors'}
-      click a color name or value to change it
+      <span>click a color name or value to change it</span>
+      <Button text='save all colors' action={saveColors}><Save /></Button>
     {:else if $actions.current === 'seeCode'}
       <label for='colors-json'>
         <textarea
@@ -209,16 +214,11 @@
           id='colors-json'
           name='colors-json'
           value={JSON.stringify($data.colors, null, '  ')}
-          on:input={event => $data.colors = JSON.parse(event.target.value)}
+          on:input={event => $data.colors = !!event.target.value ? JSON.parse(event.target.value) : []}
         />
         <span>copy or edit the code</span>
       </label>
-      <Button
-        text=''
-        action={() => console.log('button click', $data.colors)}
-      >
-        <Save />
-      </Button>
+      <Button text='save all colors' action={saveColors}><Save /></Button>
     {/if}
   </section>
 {/if}

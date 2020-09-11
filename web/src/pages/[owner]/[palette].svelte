@@ -54,26 +54,8 @@
       }
     }).catch(err => this.error(500, err))
   }
-
-  const getEditButton = editting => {
-    if (editting) {
-      return {
-        text: 'save',
-        icon: 'save',
-        active: true,
-        action: () => $actions.current = null
-      }
-    } else {
-      return {
-        text: 'edit colors',
-        title: 'editColors', 
-        icon: 'edit',
-        action: () => $actions.current = 'editColors'
-      }
-    }
-  }
     
-  $: actions.set({
+  actions.set({
     buttons: [
       {
         text: 'add a color',
@@ -81,7 +63,12 @@
         icon: 'add',
         action: () => $actions.current = 'addColor'
       },
-      getEditButton($actions.current === 'editColors'),
+      {
+        text: 'edit colors',
+        title: 'editColors', 
+        icon: 'edit',
+        action: () => $actions.current = 'editColors'
+      },
       {
         text: 'see JSON',
         title: 'seeCode', 
@@ -94,8 +81,7 @@
       // 	icon: 'download',
       // 	action: () => $actions.current = 'downloadSvg'
       // }
-    ],
-    current: $actions.current,
+    ]
   })
 </script>
 
