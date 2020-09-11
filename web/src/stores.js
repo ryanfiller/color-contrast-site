@@ -1,10 +1,11 @@
 import { writable } from 'svelte/store'
 
-export const actions = writable([])
-export const activeAction = writable('')
-export const colorPalette = writable([])
+export const actions = writable({
+  buttons: [],
+  current: null
+})
 
-export const currentData = writable({
+export const data = writable({
   // user: null, // TODO? - auth
   owners: [],
   owner: null,

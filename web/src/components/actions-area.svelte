@@ -1,5 +1,5 @@
 <script>
-  import { currentData, activeAction, colorPalette } from '../stores.js'
+  import { data, actions } from '../stores.js'
   import Button from './button.svelte'
   import Save from '../../static/icons/save.svg'
   import { slugify } from '../helpers.js'
@@ -15,15 +15,10 @@
   }
 
   const handleClearAction = () => {
-    if ($activeAction !== 'editColors' ) {
-      return activeAction.set('')
+    if ($actions.current !== 'editColors' ) {
+      return $actions.current = null
     }
   }
-
-  let colors
-  colorPalette.subscribe(currentColorPalette => {
-    colors = currentColorPalette
-  })
 
   let newOwner = ''
   let newPalette = ''
@@ -56,7 +51,7 @@
       slug: slugify(newPalette),
       colors: [],
       owner: {
-        _ref: currentData.user,
+        _ref: data.user,
         _type: 'reference'
       }
     })
@@ -66,7 +61,7 @@
     sanityPost({
       mutations: [{
         patch: {
-        id: currentData.palette,
+        id: data.palette,
         insert: {
           after: 'colors[-1]',
           items: [
@@ -134,9 +129,9 @@
   }
 </style>
 
-{#if !!$activeAction}
+{#if !!$actions.current}
   <section use:clickOutside on:clickOutside={handleClearAction}>
-    {#if $activeAction === 'addUser'}
+    {#if $actions.current === 'addUser'}
       <label for='new-owner'>
         <input 
           type='text'
@@ -152,7 +147,7 @@
       >
         <Save />
       </Button>
-    {:else if $activeAction === 'addPalette'}
+    {:else if $actions.current === 'addPalette'}
       <label for='new-palette'>
         <input 
           type='text'
@@ -168,7 +163,7 @@
       >
         <Save />
       </Button>
-    {:else if $activeAction === 'addColor'}
+    {:else if $actions.current === 'addColor'}
       <label for='new-color-name'>
         <input 
           type='text'
@@ -193,9 +188,9 @@
       >
         <Save />
       </Button>
-    {:else if $activeAction === 'editColors'}
+    {:else if $actions.current === 'editColors'}
       click a color name or value to change it
-    {:else if $activeAction === 'seeCode'}
+    {:else if $actions.current === 'seeCode'}
       <label for='colors-json'>
         <textarea
           rows={(colors.length * 4) + 1}

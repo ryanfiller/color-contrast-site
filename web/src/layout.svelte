@@ -1,7 +1,7 @@
 <script>
-	import { currentData } from './stores.js'
+	import { data } from './stores.js'
 	$: if ('DEVELOPMENT' === 'true') {
-		console.log('$currentData', $currentData)
+		console.log('$data', $data)
 	}
 
 	import Breadcrumbs from './components/breadcrumbs.svelte'

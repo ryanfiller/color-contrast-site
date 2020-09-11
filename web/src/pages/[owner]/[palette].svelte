@@ -2,11 +2,10 @@
   import { params } from '@sveltech/routify'
 
   import client from '../../sanityClient'
-  import { currentData, actions, activeAction } from '../../stores.js'
+  import { data, actions } from '../../stores.js'
   import Layout from '../../layout.svelte'
   import Loading from '../../components/loading.svelte'
-
-  import Chart from 'color-contrast-table-svelte'
+  import Palette from '../../components/palette.svelte'
 
   const { owner, palette } = $params
 
@@ -31,8 +30,8 @@
       if (response === []) {
         Promise.reject
 			} else {
-        currentData.set({
-          ...currentData,
+        data.set({
+          ...data,
           owner: { 
             name: response[0].name,
             slug: response[0].slug,
@@ -54,44 +53,51 @@
         })
       }
     }).catch(err => this.error(500, err))
-	}
+  }
 
-		$: buttons = [
-    {
-      text: 'add a color',
-      title: 'addColor', 
-      icon: 'add',
-      action: () => activeAction.set('addColor')
-    },
-    $activeAction === 'editColors'
-      ? {
+  const getEditButton = editting => {
+    if (editting) {
+      return {
         text: 'save',
         icon: 'save',
         active: true,
-        action: () => activeAction.set('')
-      } 
-      : {
+        action: () => $actions.current = null
+      }
+    } else {
+      return {
         text: 'edit colors',
         title: 'editColors', 
         icon: 'edit',
-        action: () => activeAction.set('editColors')
-      },
-    {
-      text: 'see JSON',
-      title: 'seeCode', 
-      icon: 'code',
-      action: () => activeAction.set('seeCode')
+        action: () => $actions.current = 'editColors'
+      }
     }
-    // {
-    // 	text: 'download svg',
-    //  title: 'downloadSvg', 
-    // 	icon: 'download',
-    // 	action: () => activeAction.set('downloadSvg')
-    // }
-  ]
+  }
     
-  $: actions.set([...buttons])
-  $: editting = $activeAction === 'editColors'
+  $: actions.set({
+    buttons: [
+      {
+        text: 'add a color',
+        title: 'addColor', 
+        icon: 'add',
+        action: () => $actions.current = 'addColor'
+      },
+      getEditButton($actions.current === 'editColors'),
+      {
+        text: 'see JSON',
+        title: 'seeCode', 
+        icon: 'code',
+        action: () => $actions.current = 'seeCode'
+      }
+      // {
+      // 	text: 'download svg',
+      //  title: 'downloadSvg', 
+      // 	icon: 'download',
+      // 	action: () => $actions.current = 'downloadSvg'
+      // }
+    ],
+    current: $actions.current,
+  })
+  
 </script>
 
 <svelte:head>
@@ -113,17 +119,12 @@
   }
 </style>
 
-<Layout owner={$currentData.ownerData} palette={$currentData.paletteData}>
+<Layout owner={$data.owner} palette={$data.palette}>
 	{#await getData()}
 		<Loading />
 	{:then}
-		{#if $currentData.colors.length}
-      <Chart 
-        useStyles
-        editNames={editting}
-        editValues={editting}
-        colors={$currentData.colors}
-      />
+		{#if $data.colors.length}
+      <Palette />
 		{:else}
 			<p>uh oh, this palette doesn't have any colors yet.</p>
 		{/if}

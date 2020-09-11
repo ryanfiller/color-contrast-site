@@ -2,7 +2,7 @@
   import { url, params } from '@sveltech/routify'
 
   import client from '../../sanityClient'
-  import { currentData, actions, activeAction } from '../../stores.js'
+  import { data, actions } from '../../stores.js'
   import Layout from '../../layout.svelte'
   import Loading from '../../components/loading.svelte'
 
@@ -27,8 +27,8 @@
       if (response === []) {
         Promise.reject
 			} else {
-        currentData.set({
-          ...currentData,
+        data.set({
+          ...data,
           owner: { 
             name: response[0].name,
             slug: response[0].slug,
@@ -38,16 +38,18 @@
         })
       }
     }).catch(err => this.error(500, err))
-	}
+  }
   
-  actions.set([
-    {
-      text: 'add a color palette',
-      title: 'addPalette',
-      icon: 'add',
-      action: () => activeAction.set('addPalette')
-    }
-  ])
+  actions.set({
+		buttons: [
+			{
+        text: 'add a color palette',
+        title: 'addPalette',
+        icon: 'add',
+        action: () => $actions.current = 'addPalette'
+      }
+		]
+	})
 </script>
 
 <svelte:head>
@@ -69,13 +71,13 @@
   }
 </style>
 
-<Layout owner={$currentData.owner}>
+<Layout owner={$data.owner}>
 	{#await getData()}
 		<Loading />
 	{:then}
-		{#if $currentData.palettes.length}
+		{#if $data.palettes.length}
 			<ul>
-				{#each $currentData.palettes as palette}
+				{#each $data.palettes as palette}
           <li>
             <a href={$url('/:owner/:palette', {
               owner: owner,

@@ -1,6 +1,6 @@
 <script>
   import { onMount, beforeUpdate } from 'svelte' 
-  import { actions, activeAction } from '../stores.js'
+  import { actions } from '../stores.js'
   import Button from './button.svelte'
   import DarkMode from './dark-mode.svelte'
 
@@ -30,12 +30,12 @@
 </style>
 
 <ul>
-  {#each $actions as button}
+  {#each $actions.buttons as button}
     <li>
       <Button
         title={button.text}
         action={button.action}
-        active={button.active || $activeAction === button.title}
+        active={button.active || $actions.current === button.title}
       >
         <svelte:component this={icons[button.icon]}/>
       </Button>
