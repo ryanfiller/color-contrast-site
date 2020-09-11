@@ -6,6 +6,10 @@ import { terser } from 'rollup-plugin-terser'
 import json from '@rollup/plugin-json'
 import svelteSVG from 'rollup-plugin-svelte-svg'
 
+import replace from '@rollup/plugin-replace'
+import dotenv from 'dotenv'
+dotenv.config()
+
 const production = !process.env.ROLLUP_WATCH
 
 function serve() {
@@ -38,6 +42,9 @@ export default {
 		file: 'public/build/bundle.js'
 	},
 	plugins: [
+		replace({
+			DEVELOPMENT: JSON.stringify(process.env.DEV)
+		}),
 		svelte({
 			// enable run-time checks when not in production
 			dev: !production,

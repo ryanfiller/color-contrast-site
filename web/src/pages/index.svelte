@@ -14,8 +14,9 @@
 		}
 	])
 
+	const query = '*[_type == "owner"]'
 	const getData = async () => {
-		return client.fetch('*[_type == "owner"]')
+		return client.fetch(query)
 		.then(response => currentData.set({
 			...currentData,
 			owners: response

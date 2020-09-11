@@ -23,49 +23,38 @@
       }
     }
   `
+
   const queryArgs = { owner, palette }
-
-  let ownerData
-  let paletteData
-  let colors
-
   const getData = async () => {
-    return client.fetch(query, queryArgs).then(response => {
+		return client.fetch(query, queryArgs)
+		.then(response => {
       if (response === []) {
         Promise.reject
 			} else {
-        ownerData = 
-        ownerData = { 
-          name: response[0].name,
-          slug: response[0].slug,
-          id: response[0]._id
-        }
-        paletteData = {
-          title: response[0].palettes[0].title,
-          slug: response[0].palettes[0].slug,
-          id: response[0].palettes[0]._id
-        }
-        colors = response[0].palettes[0].colors
-         ? response[0].palettes[0].colors.map(color => {
-          return {
-            name: color.name,
-            value: color.value
-          }
+        currentData.set({
+          ...currentData,
+          owner: { 
+            name: response[0].name,
+            slug: response[0].slug,
+            id: response[0]._id
+          },
+          palette: {
+            title: response[0].palettes[0].title,
+            slug: response[0].palettes[0].slug,
+            id: response[0].palettes[0]._id
+          },
+          colors: response[0].palettes[0].colors
+           ? response[0].palettes[0].colors.map(color => {
+            return {
+              name: color.name,
+              value: color.value
+            }
+          })
+          : []
         })
-        : [],
-        currentData.user = ownerData._id
-        currentData.palette = paletteData._id
-        currentData.colors = colors
       }
     }).catch(err => this.error(500, err))
-  }
-
-  const data = getData() 
-  
-  let action
-  activeAction.subscribe(currentAction => {
-    action = currentAction
-  })
+	}
 
 		$: buttons = [
     {
@@ -74,17 +63,19 @@
       icon: 'add',
       action: () => activeAction.set('addColor')
     },
-    action === 'editColors' ? {
-      text: 'save',
-      icon: 'save',
-      active: true,
-      action: () => activeAction.set('')
-    } : {
-      text: 'edit colors',
-      title: 'editColors', 
-      icon: 'edit',
-      action: () => activeAction.set('editColors')
-    },
+    $activeAction === 'editColors'
+      ? {
+        text: 'save',
+        icon: 'save',
+        active: true,
+        action: () => activeAction.set('')
+      } 
+      : {
+        text: 'edit colors',
+        title: 'editColors', 
+        icon: 'edit',
+        action: () => activeAction.set('editColors')
+      },
     {
       text: 'see JSON',
       title: 'seeCode', 
@@ -100,7 +91,7 @@
   ]
     
   $: actions.set([...buttons])
-  $: editting = action === 'editColors'
+  $: editting = $activeAction === 'editColors'
 </script>
 
 <svelte:head>
@@ -122,16 +113,16 @@
   }
 </style>
 
-<Layout owner={ownerData} palette={paletteData}>
-	{#await data}
+<Layout owner={$currentData.ownerData} palette={$currentData.paletteData}>
+	{#await getData()}
 		<Loading />
-	{:then data}
-		{#if colors && colors.length}
+	{:then}
+		{#if $currentData.colors.length}
       <Chart 
         useStyles
         editNames={editting}
         editValues={editting}
-        {colors}
+        colors={$currentData.colors}
       />
 		{:else}
 			<p>uh oh, this palette doesn't have any colors yet.</p>

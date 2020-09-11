@@ -21,25 +21,24 @@
     }
   `
   const queryArgs = { owner }
-  let ownerData
-  let palettes
-
   const getData = async () => {
-    return client.fetch(query, queryArgs).then(response => {
+		return client.fetch(query, queryArgs)
+		.then(response => {
       if (response === []) {
         Promise.reject
 			} else {
-        ownerData = { 
-          name: response[0].name,
-          slug: response[0].slug,
-        }
-        palettes = response[0].palettes
-        currentData.user = response[0]._id
+        currentData.set({
+          ...currentData,
+          owner: { 
+            name: response[0].name,
+            slug: response[0].slug,
+            id: response[0]._id
+          },
+          palettes: response[0].palettes
+        })
       }
     }).catch(err => this.error(500, err))
-  }
-
-  const data = getData()
+	}
   
   actions.set([
     {
@@ -70,13 +69,13 @@
   }
 </style>
 
-<Layout owner={ownerData}>
-	{#await data}
+<Layout owner={$currentData.owner}>
+	{#await getData()}
 		<Loading />
-	{:then data}
-		{#if palettes && palettes.length}
+	{:then}
+		{#if $currentData.palettes.length}
 			<ul>
-				{#each palettes as palette}
+				{#each $currentData.palettes as palette}
           <li>
             <a href={$url('/:owner/:palette', {
               owner: owner,

@@ -1,4 +1,9 @@
 <script>
+	import { currentData } from './stores.js'
+	$: if ('DEVELOPMENT' === 'true') {
+		console.log('$currentData', $currentData)
+	}
+
 	import Breadcrumbs from './components/breadcrumbs.svelte'
 	import ActionsButtons from './components/actions-buttons.svelte'
 	import ActionsArea from './components/actions-area.svelte'
@@ -76,13 +81,13 @@
 
 	footer > span > a {
 		font-size: .75em;
+		font-weight: bold;
 		line-height: 1;
 		color: var(--backgroundColor);
 		display: inlnie-block;
 		margin: var(--borderSize);
 		position: relative;
-		top: -1px;
-		font-weight: bold;
+		top: -2px;
 	}
 
 	/* list styles */
