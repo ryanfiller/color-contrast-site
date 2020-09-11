@@ -27,7 +27,7 @@
 		font-size: 12px;
 		color: var(--backgroundColor);
 		background: var(--textColor);
-		font-family: sans-serif;
+		font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 	}
 
 	:global(*) {

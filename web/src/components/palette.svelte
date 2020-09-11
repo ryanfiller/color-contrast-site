@@ -10,6 +10,7 @@
   #table {
     font-size: 1em;
     width: 100%;
+    max-height: 100%;
   }
 
   :global(#table table) {
