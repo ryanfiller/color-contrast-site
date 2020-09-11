@@ -27,6 +27,7 @@
 		font-size: 12px;
 		color: var(--backgroundColor);
 		background: var(--textColor);
+		font-family: sans-serif;
 	}
 
 	:global(*) {
@@ -117,7 +118,6 @@
   }
 
   :global(main li a) {
-    text-decoration: none;
 		display: block;
 		color: var(--backgroundColor) !important;
   }

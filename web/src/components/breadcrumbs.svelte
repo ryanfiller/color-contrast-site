@@ -36,6 +36,15 @@
 		padding: .25em;
 	}
 
+	:global(a) {
+		text-decoration: none;
+	}
+
+	:global(a:hover),
+	:global(a:focus) {
+		text-decoration: underline;
+	}
+
 </style>
 
 <nav>
