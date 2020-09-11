@@ -20,10 +20,10 @@
     }
   }
 
-  let newOwner = ''
-  let newPalette = ''
-  let newColor = {name: '', value: ''}
-  let jsonCode = ''
+  let owner = ''
+  let palette = ''
+  let color = {name: '', value: ''}
+  let jsonCode = '{}'
 
   const sanityPost = data => {
     fetch('/.netlify/functions/sanity', {
@@ -39,16 +39,16 @@
   const createNewOwner = () => {
     sanityPost({
       _type: 'owner',
-      name: newOwner,
-      slug: slugify(newOwner)
+      name: owner,
+      slug: slugify(owner)
     })
   }
 
   const createNewPalette = () => {
     sanityPost({
       _type: 'palette',
-      title: newPalette,
-      slug: slugify(newPalette),
+      title: palette,
+      slug: slugify(palette),
       colors: [],
       owner: {
         _ref: data.user,
@@ -66,8 +66,8 @@
           after: 'colors[-1]',
           items: [
             {
-              name: newColor.name,
-              value: newColor.value
+              name: color.name,
+              value: color.value
             }
           ]
         }
@@ -137,7 +137,7 @@
           type='text'
           id='new-owner'
           name='new-owner'
-          bind:value={newOwner}
+          bind:value={owner}
         />
         <span>add a new user:</span>
       </label>
@@ -153,7 +153,7 @@
           type='text'
           id='new-palette'
           name='new-palette'
-          bind:value={newPalette}
+          bind:value={palette}
         />
         <span>add a new color palette:</span>
       </label>
@@ -169,7 +169,7 @@
           type='text'
           id='new-color-name'
           name='new-color-name'
-          bind:value={newColor.name}
+          bind:value={color.name}
         />
         <span>new color name:</span>
       </label>
@@ -178,7 +178,7 @@
           type='color'
           id='new-color-value'
           name='new-color-value'
-          bind:value={newColor.value}
+          bind:value={color.value}
         />
         <span>new color value:</span>
       </label>
@@ -193,18 +193,18 @@
     {:else if $actions.current === 'seeCode'}
       <label for='colors-json'>
         <textarea
-          rows={(colors.length * 4) + 1}
+          rows={($data.colors.length * 4) + 1}
           type='text'
           id='colors-json'
           name='colors-json'
-          value={JSON.stringify(colors, null, '  ')}
-          on:input={event => colors = JSON.parse(event.target.value)}
+          value={JSON.stringify($data.colors, null, '  ')}
+          on:input={event => $data.colors = JSON.parse(event.target.value)}
         />
         <span>copy or edit the code</span>
       </label>
       <Button
         text=''
-        action={() => console.log('button click', colors)}
+        action={() => console.log('button click', $data.colors)}
       >
         <Save />
       </Button>
