@@ -10,7 +10,7 @@
         node.dispatchEvent(new CustomEvent('clickOutside', node))
       }
     }
-  	document.addEventListener('click', handleClick, true);
+  	document.addEventListener('click', handleClick, true)
     return { destroy() { document.removeEventListener('click', handleClick, true) }}
   }
 
@@ -20,13 +20,19 @@
     }
   }
 
+  document.addEventListener('keydown', event => {
+    if (event.keyCode === 27) {
+      return handleClearAction()
+    }
+  })
+
   let owner = ''
   let palette = ''
   let color = {name: '', value: ''}
   let jsonCode = '{}'
 
-  const sanityPost = data => {
-    fetch('/.netlify/functions/sanity', {
+  const sanityPost = (endpoint, data) => {
+    fetch(`/.netlify/functions/${endpoint}`, {
       method: 'POST', 
       credentials: 'same-origin',
       headers: { 'Content-Type': 'application/json' },
@@ -37,7 +43,7 @@
   }
 
   const createNewOwner = () => {
-    sanityPost({
+    sanityPost('create', {
       _type: 'owner',
       name: owner,
       slug: slugify(owner)
@@ -45,34 +51,36 @@
   }
 
   const createNewPalette = () => {
-    sanityPost({
+    sanityPost('create', {
       _type: 'palette',
       title: palette,
       slug: slugify(palette),
       colors: [],
       owner: {
-        _ref: data.user,
+        _ref: $data.owner.id,
         _type: 'reference'
       }
     })
   }
 
+
   const createNewColor = () => {
-    sanityPost({
-      mutations: [{
+    sanityPost('mutate', [
+      {
         patch: {
-        id: data.palette,
-        insert: {
-          after: 'colors[-1]',
-          items: [
-            {
-              name: color.name,
-              value: color.value
-            }
-          ]
+          id: $data.palette.id,
+          insert: {
+            after: 'colors[-1]',
+            items: [
+              {
+                name: color.name,
+                value: color.value
+              }
+            ]
+          }
         }
       }
-    }]})
+    ])
   }
 </script>
 
@@ -128,6 +136,9 @@
     width: 2rem;
   }
 </style>
+
+<!-- TODO - make this submite with enter, reset focus -->
+<!-- TODO - make sure you can't submit duplicate stuff -->
 
 {#if !!$actions.current}
   <section use:clickOutside on:clickOutside={handleClearAction}>
