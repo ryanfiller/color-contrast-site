@@ -90,7 +90,7 @@
           _ref: $data.owner.id,
           _type: 'reference'
         }
-      }, (response) => $data.palettes = [...$data.palettes, response].sort((a, b) =>  a.name.toLowerCase() > b.name.toLowerCase()))
+      }, (response) => $data.palettes = [...$data.palettes, response].sort((a, b) =>  a.title.toLowerCase() > b.title.toLowerCase()))
     }
   }
 

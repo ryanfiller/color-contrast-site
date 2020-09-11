@@ -1,4 +1,5 @@
 <script>
+	import { onMount } from 'svelte'
 	import { url } from '@sveltech/routify'
 	import client from '../sanityClient'
 	import { data, actions } from '../stores.js'
@@ -25,6 +26,8 @@
 		})
 		).catch(err => this.error(500, err))
 	}
+
+	onMount(() => getData())
 </script>
 
 <svelte:head>

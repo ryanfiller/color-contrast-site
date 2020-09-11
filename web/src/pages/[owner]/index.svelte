@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from 'svelte'
   import { url, params } from '@sveltech/routify'
 
   import client from '../../sanityClient'
@@ -49,7 +50,9 @@
         action: () => $actions.current = 'addPalette'
       }
 		]
-	})
+  })
+  
+  onMount(() => getData())
 </script>
 
 <svelte:head>

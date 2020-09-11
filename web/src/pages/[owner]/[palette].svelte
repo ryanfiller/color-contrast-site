@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from 'svelte'
   import { params } from '@sveltech/routify'
 
   import client from '../../sanityClient'
@@ -83,26 +84,13 @@
       // }
     ]
   })
+
+  onMount(() => getData())
 </script>
 
 <svelte:head>
   <title>{palette} | colors.ryanfiller.com</title>
 </svelte:head>
-
-<style>
-  span {
-    display: block;
-  }
-
-  div {
-    display: flex;
-  }
-
-  div span {
-    flex: 1;
-    height: 1rem;
-  }
-</style>
 
 <Layout owner={$data.owner} palette={$data.palette}>
 	{#await getData()}
