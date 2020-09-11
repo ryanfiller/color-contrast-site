@@ -1,5 +1,4 @@
 <script>
-	import { onMount } from 'svelte'
 	import { url } from '@sveltech/routify'
 	import client from '../sanityClient'
 	import { data, actions } from '../stores.js'
@@ -27,7 +26,7 @@
 		).catch(err => this.error(500, err))
 	}
 
-	onMount(() => getData())
+	const promise = getData()
 </script>
 
 <svelte:head>
@@ -35,7 +34,7 @@
 </svelte:head>
 
 <Layout>
-	{#await getData()}
+	{#await promise}
 		<Loading />
 	{:then}
 		{#if $data.owners.length}

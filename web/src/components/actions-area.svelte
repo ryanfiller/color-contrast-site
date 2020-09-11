@@ -94,7 +94,6 @@
     }
   }
 
-
   const createNewColor = () => {
     if ($data.colors.filter(c => (c.name === color.name && c.value === color.value)).length) {
       $actions.error = true
@@ -127,7 +126,7 @@
           colors: $data.colors
         }
       }
-    ])
+    ], (response) => $data.colors = response[0].colors)
   }
 </script>
 

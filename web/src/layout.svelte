@@ -51,10 +51,27 @@
 	header {
 		font-size: 1.5rem;
 		padding: calc(2 * var(--borderSize));
+		padding-bottom: 0;
 		border-bottom: var(--borderSize) solid var(--backgroundColor);
 		display: flex;
+		flex-wrap: wrap;
 		align-items: center;
 		justify-content: space-between;
+	}
+
+	:global(header > *) {
+		margin-bottom: calc(2 * var(--borderSize)) !important;
+	}
+
+	/* breadcrumbs */
+	:global(header > nav) {
+		flex: 100;
+	}
+	
+	/* actions buttons */
+	:global(header > ul) {
+		flex: 1;
+		justify-content: center;
 	}
 	
 	main {

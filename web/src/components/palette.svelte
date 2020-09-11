@@ -4,6 +4,8 @@
 
 
   $: editable = $actions.current === 'editColors'
+
+  $: console.log('$data.colors', $data.colors)
 </script>
 
 <style>
