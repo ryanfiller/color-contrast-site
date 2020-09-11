@@ -9,6 +9,8 @@ export const actions = writable({
 export const data = writable({
   // user: null, // TODO? - auth
   loading: false,
+  error: null,
+  response: [],
   owners: [],
   owner: null,
   palettes: [],

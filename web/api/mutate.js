@@ -8,7 +8,7 @@ const client = sanityClient({
 
 exports.handler = async function(event, _context, callback) {
   const payload = JSON.parse(event.body)
-  const result = await client.mutate(payload)
+  const result = await client.mutate(payload, { returnDocuments: true })
   callback(null, {
     statusCode: 200,
     body: JSON.stringify(result)

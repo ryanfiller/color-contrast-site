@@ -37,14 +37,14 @@
 
   let owner = ''
   let palette = ''
-  let color = {name: '', value: '#ff1493'}
+  let color = {name: '', value: '#ffffff'}
   let jsonCode = '{}'
 
   $: icon = $data.loading ? 'loading' : 'save'
 
-  const sanityPost = (endpoint, content) => {
+  const sanityPost = (endpoint, content, callback = () => '') => {
     $data.loading = true
-    fetch(`/.netlify/functions/${endpoint}`, {
+    return fetch(`/.netlify/functions/${endpoint}`, {
       method: 'POST', 
       credentials: 'same-origin',
       headers: { 'Content-Type': 'application/json' },
@@ -54,8 +54,10 @@
       console.log('response', response)
       $actions.current = null
       $data.loading = false
+      callback(response)
     })
     .catch(error => {
+      $data.error = `uh oh, couldn't send data.`
       $data.loading = false
       console.log('error', error)
     })
@@ -70,7 +72,7 @@
         _type: 'owner',
         name: owner,
         slug: slugify(owner)
-      })
+      }, (response) => $data.owners = [...$data.owners, response].sort((a, b) =>  a.name.toLowerCase() > b.name.toLowerCase()))
     }
   }
 
@@ -88,7 +90,7 @@
           _ref: $data.owner.id,
           _type: 'reference'
         }
-      })
+      }, (response) => $data.palettes = [...$data.palettes, response].sort((a, b) =>  a.name.toLowerCase() > b.name.toLowerCase()))
     }
   }
 
@@ -106,7 +108,7 @@
             items: [ { name: color.name, value: color.value } ]
           }
         }}
-      ])
+      ], (response) => $data.colors = response[0].colors)
     }
   }
 
@@ -268,7 +270,7 @@
     {/if}
 
     {:else if $actions.current === 'editColors'}
-    <span>new color value:</span>
+    <span>click a color name or value to edit</span>
     <Button title='save all colors' icon={icon} action={saveColors} />
 
     {:else if $actions.current === 'seeCode'}

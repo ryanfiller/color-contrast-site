@@ -36,5 +36,6 @@
     colors={$data.colors}
     editNames={editable}
     editValues={editable}
+    onBlur={() => null}
   />
 </div>
