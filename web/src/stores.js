@@ -8,7 +8,7 @@ export const actions = writable({
 
 export const data = writable({
   // user: null, // TODO? - auth
-  // loading: false, // TODO?? - make buttons spin?
+  loading: false,
   owners: [],
   owner: null,
   palettes: [],

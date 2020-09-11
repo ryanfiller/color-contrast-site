@@ -6,6 +6,7 @@
   import Save from '../../static/icons/save.svg'
   import Sun from '../../static/icons/sun.svg'
   import Moon from '../../static/icons/moon.svg'
+  import Loading from './loading.svelte'
 
   const icons = {
     add: Add,
@@ -14,7 +15,8 @@
     edit: Edit,
     save: Save,
     sun: Sun,
-    moon: Moon
+    moon: Moon,
+    loading: Loading
   }
 
   export let title = ''

@@ -19,12 +19,15 @@
   }
 
   .loading :global(svg) {
-    height: 5rem;
-    width: 5rem;
     animation-name: spin;
-    animation-duration: .5s;
+    animation-duration: .75s;
     animation-iteration-count: infinite;
     animation-timing-function: linear; 
+  }
+
+  :global(main .loading svg) {
+    height: 5rem;
+    width: 5rem;
   }
 
   .loading :global(svg *) {

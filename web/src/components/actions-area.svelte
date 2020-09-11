@@ -40,18 +40,25 @@
   let color = {name: '', value: '#ff1493'}
   let jsonCode = '{}'
 
-  const sanityPost = (endpoint, data) => {
+  $: icon = $data.loading ? 'loading' : 'save'
+
+  const sanityPost = (endpoint, content) => {
+    $data.loading = true
     fetch(`/.netlify/functions/${endpoint}`, {
       method: 'POST', 
       credentials: 'same-origin',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
+      body: JSON.stringify(content)
     }).then(response => response.json())
     .then(response => {
       console.log('response', response)
       $actions.current = null
+      $data.loading = false
     })
-    .catch(error => console.log('error', error))
+    .catch(error => {
+      $data.loading = false
+      console.log('error', error)
+    })
   }
 
   const createNewOwner = () => {
@@ -210,7 +217,7 @@
       />
       <span>add a new user:</span>
     </label>
-    <Button title='save user' icon='save' action={createNewOwner} />
+    <Button title='save user' icon={icon} action={createNewOwner} />
     {#if $actions.error}
       <span class='error' id='new-owner-error'>that user already exists!</span>
     {/if}
@@ -227,7 +234,7 @@
       />
       <span>add a new color palette:</span>
     </label>
-    <Button title='save palette' icon='save' action={createNewPalette} />
+    <Button title='save palette' icon={icon} action={createNewPalette} />
     {#if $actions.error}
       <span class='error' id='new-palette-error'>that palette already exists!</span>
     {/if}
@@ -255,14 +262,14 @@
       />
       <span>new color value:</span>
     </label>
-    <Button title='save color' icon='save' action={createNewColor} />
+    <Button title='save color' icon={icon} action={createNewColor} />
     {#if $actions.error}
       <span class='error' id='new-color-error'>that color already exists!</span>
     {/if}
 
     {:else if $actions.current === 'editColors'}
     <span>new color value:</span>
-    <Button title='save all colors' icon='save' action={saveColors} />
+    <Button title='save all colors' icon={icon} action={saveColors} />
 
     {:else if $actions.current === 'seeCode'}
     <label for='colors-json'>
@@ -278,7 +285,7 @@
       />
       <span>copy or edit the code</span>
     </label>
-    <Button title='save all colors' icon='save' action={saveColors} />
+    <Button title='save all colors' icon={icon} action={saveColors} />
     {#if $actions.error}
       <span class='error' id='colors-json-error'>error!</span>
     {/if}
