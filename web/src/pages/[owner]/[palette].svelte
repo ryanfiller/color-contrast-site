@@ -85,8 +85,6 @@
   })
 </script>
 
-<!-- TODO make these use $data instead of params? -->
-
 <svelte:head>
   <title>{palette} | color-contrast-table</title>
 </svelte:head>

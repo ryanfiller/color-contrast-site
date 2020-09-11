@@ -158,6 +158,7 @@
 
 <!-- TODO - make this submit with enter, reset focus -->
 <!-- TODO - make sure you can't submit duplicate stuff -->
+<!-- TODO - abstract input and submit button -->
 
 {#if !!$actions.current}
   <section use:clickOutside on:clickOutside={handleClearAction}>

@@ -31,8 +31,6 @@
 	<title>color-contrast-table</title>
 </svelte:head>
 
-<!-- TODO - alphabetize lists -->
-
 <Layout>
 	{#await getData()}
 		<Loading />
