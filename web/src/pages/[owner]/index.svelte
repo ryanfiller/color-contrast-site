@@ -34,7 +34,7 @@
             slug: response[0].slug,
             id: response[0]._id
           },
-          palettes: response[0].palettes
+          palettes: response[0].palettes.sort((a, b) =>  a.title.toLowerCase() > b.title.toLowerCase())
         })
       }
     }).catch(err => this.error(500, err))
@@ -53,7 +53,7 @@
 </script>
 
 <svelte:head>
-  <title>{owner} | color-contrast-table</title>
+  <title>{owner} | colors.ryanfiller.com</title>
 </svelte:head>
 
 <style>

@@ -1,23 +1,7 @@
 <script>
-  import { onMount, beforeUpdate } from 'svelte' 
   import { actions } from '../stores.js'
   import Button from './button.svelte'
   import DarkMode from './dark-mode.svelte'
-
-  import Add from '../../static/icons/add.svg'
-  import Code from '../../static/icons/code.svg'
-  import Download from '../../static/icons/download.svg'
-  import Edit from '../../static/icons/edit.svg'
-  import Save from '../../static/icons/save.svg'
-
-  const icons = {
-    add: Add,
-    code: Code,
-    download: Download,
-    edit: Edit,
-    save: Save,
-  }
-
 </script>
 
 <style>
@@ -34,11 +18,10 @@
     <li>
       <Button
         title={button.text}
+        icon={button.icon}
         action={button.action}
-        active={button.active || $actions.current === button.title}
-      >
-        <svelte:component this={icons[button.icon]}/>
-      </Button>
+        active={$actions.current === button.title}
+      />
     </li>
   {/each}
   <li>

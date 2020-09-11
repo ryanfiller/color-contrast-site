@@ -21,14 +21,14 @@
 		return client.fetch(query)
 		.then(response => data.set({
 			...data,
-			owners: response
+			owners: response.sort((a, b) =>  a.name.toLowerCase() > b.name.toLowerCase())
 		})
 		).catch(err => this.error(500, err))
 	}
 </script>
 
 <svelte:head>
-	<title>color-contrast-table</title>
+	<title>colors.ryanfiller.com</title>
 </svelte:head>
 
 <Layout>

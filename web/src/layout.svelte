@@ -1,5 +1,5 @@
 <script>
-	import { data } from './stores.js'
+	import { data, actions } from './stores.js'
 	$: if ('DEVELOPMENT' === 'true') {
 		console.log('$data', $data)
 	}
@@ -17,6 +17,7 @@
 		/* these can be changed with action buttons */
 		/* --backgroundColor: #212121; */
 		/* --textColor: #ffffff; */
+		--highlight: #ff1493; /* deeppink */
 		--borderSize: .5rem;
 	}
 
@@ -37,7 +38,7 @@
 	:global(*:focus) {
 		--shadowSize: calc(.5 * var(--borderSize));
 		outline: none;
-		box-shadow: 0 var(--shadowSize) 0 deeppink;
+		box-shadow: 0 var(--shadowSize) 0 var(--highlight);
 	} 
 
 	:global(body) {
@@ -84,6 +85,7 @@
 		font-size: .75em;
 		font-weight: bold;
 		line-height: 1;
+		background-color: none;
 		color: var(--backgroundColor);
 		display: inlnie-block;
 		margin: var(--borderSize);
@@ -137,6 +139,8 @@
 </main>
 
 <footer>
-	<ActionsArea />
+	{#if !!$actions.current}
+		<ActionsArea />
+	{/if}
 	<span><a href='http://ryanfiller.com'>ryanfiller.com</a></span>
 </footer>

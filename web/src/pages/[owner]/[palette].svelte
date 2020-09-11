@@ -86,7 +86,7 @@
 </script>
 
 <svelte:head>
-  <title>{palette} | color-contrast-table</title>
+  <title>{palette} | colors.ryanfiller.com</title>
 </svelte:head>
 
 <style>

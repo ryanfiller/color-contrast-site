@@ -1,7 +1,27 @@
 <script>
+  import Add from '../../static/icons/add.svg'
+  import Code from '../../static/icons/code.svg'
+  import Download from '../../static/icons/download.svg'
+  import Edit from '../../static/icons/edit.svg'
+  import Save from '../../static/icons/save.svg'
+  import Sun from '../../static/icons/sun.svg'
+  import Moon from '../../static/icons/moon.svg'
+
+  const icons = {
+    add: Add,
+    code: Code,
+    download: Download,
+    edit: Edit,
+    save: Save,
+    sun: Sun,
+    moon: Moon
+  }
+
   export let title = ''
+  export let icon = ''
   export let action = () => {}
   export let active = false
+  export let disabled = false
 </script>
 
 <style>
@@ -12,6 +32,11 @@
     cursor: pointer;
     border-radius: 50%;
     margin-left: 1rem;
+  }
+
+  button[disabled] {
+    opacity: .5;
+    cursor: not-allowed;
   }
 
   button :global(svg) {
@@ -34,9 +59,10 @@
 </style>
 
 <button
-  title={title}
+  title={disabled ? `uh oh, there's a data error` : title}
   on:click={action}
   class:active={active}
+  disabled={disabled}
 >
-  <slot />
+  <svelte:component this={icons[icon]} />
 </button>

@@ -2,9 +2,6 @@
   import { onMount, beforeUpdate } from 'svelte' 
   import Button from './button.svelte'
 
-  import Sun from '../../static/icons/sun.svg'
-  import Moon from '../../static/icons/moon.svg'
-
   let localStorage
   let darkMode
   let root
@@ -39,11 +36,11 @@
 
   $: checkDarkMode()
   $: root && setDarkModeCSS(darkMode)
+  $: icon = !!darkMode ? 'moon' : 'sun'
 </script>
 
 <Button
   title='toggle dark mode'
+  icon={icon}
   action={toggleDarkMode}
->
-  <svelte:component this={!!darkMode ? Moon : Sun}/>
-</Button>
+/>
