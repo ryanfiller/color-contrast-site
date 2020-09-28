@@ -65,7 +65,9 @@
 
   const createNewOwner = () => {
     if ($data.owners.filter(o => o.slug === owner).length) {
-      $actions.error = true
+      $actions.error = 'that user already exists!'
+    } else if (owner === '') {
+      $actions.error = 'please enter a valid new user.'
     } else {
       $actions.error = false
       sanityPost('create', {
@@ -78,7 +80,9 @@
 
   const createNewPalette = () => {
     if ($data.palettes.filter(p => p.slug === palette).length) {
-      $actions.error = true
+      $actions.error = 'that palette already exists!'
+    } else if (palette === '') {
+      $actions.error = 'please enter a valid new palette.'
     } else {
       $actions.error = false
       sanityPost('create', {
@@ -96,7 +100,9 @@
 
   const createNewColor = () => {
     if ($data.colors.filter(c => (c.name === color.name && c.value === color.value)).length) {
-      $actions.error = true
+      $actions.error = 'that color already exists!'
+    } else if (color.name === '') {
+      $actions.error = 'please enter a valid new color.'
     } else {
       $actions.error = false
       sanityPost('mutate', [
@@ -221,7 +227,7 @@
     </label>
     <Button title='save user' icon={icon} action={createNewOwner} />
     {#if $actions.error}
-      <span class='error' id='new-owner-error'>that user already exists!</span>
+      <span class='error' id='new-owner-error'>{$actions.error}</span>
     {/if}
 
     {:else if $actions.current === 'addPalette'}
@@ -239,7 +245,7 @@
     </label>
     <Button title='save palette' icon={icon} action={createNewPalette} />
     {#if $actions.error}
-      <span class='error' id='new-palette-error'>that palette already exists!</span>
+      <span class='error' id='new-palette-error'>{$actions.error}</span>
     {/if}
 
     {:else if $actions.current === 'addColor'}
@@ -269,7 +275,7 @@
     </label>
     <Button title='save color' icon={icon} action={createNewColor} />
     {#if $actions.error}
-      <span class='error' id='new-color-error'>that color already exists!</span>
+      <span class='error' id='new-color-error'>{$actions.error}</span>
     {/if}
 
     {:else if $actions.current === 'editColors'}
@@ -292,7 +298,7 @@
     </label>
     <Button title='save all colors' icon={icon} action={saveColors} />
     {#if $actions.error}
-      <span class='error' id='colors-json-error'>error!</span>
+      <span class='error' id='colors-json-error'>{$actions.error}</span>
     {/if}
   {/if}
 </form>
