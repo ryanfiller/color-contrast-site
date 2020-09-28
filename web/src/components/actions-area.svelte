@@ -209,6 +209,7 @@
   {#if $actions.current === 'addUser'}
     <label for='new-owner'>
       <input
+        required
         aria-invalid={$actions.error}
         aria-describedby="new-owner-error"
         type='text'
@@ -226,6 +227,7 @@
     {:else if $actions.current === 'addPalette'}
     <label for='new-palette'>
       <input
+        required
         aria-invalid={$actions.error}
         aria-describedby="new-palette-error"
         type='text'
@@ -243,6 +245,7 @@
     {:else if $actions.current === 'addColor'}
     <label for='new-color-name'>
       <input
+        required
         aria-invalid={$actions.error}
         aria-describedby="new-color-error"
         type='text'
@@ -254,6 +257,7 @@
     </label>
     <label for='new-color-value'>
       <input
+        required
         aria-invalid={$actions.error}
         aria-describedby="new-color-error"
         type='color'
