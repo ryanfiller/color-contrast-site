@@ -82,6 +82,7 @@
 		padding: 0;
 		cursor: pointer;
 		text-decoration: underline;
+		color: currentColor;
 	}
 	
 	main {
