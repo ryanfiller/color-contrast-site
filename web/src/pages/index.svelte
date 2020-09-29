@@ -48,7 +48,7 @@
 				{/each}
 			</ul>
 		{:else}
-			<p>uh oh, there are no users. create one!</p>
+			<p>uh oh, there are no users. <button on:click={() => {$actions.current='addUser'}}>create one!</button></p>
 		{/if}
 	{:catch error}
 		error?

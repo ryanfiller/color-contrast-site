@@ -73,6 +73,16 @@
 		flex: 1;
 		justify-content: center;
 	}
+
+	/* buttons for when X is empty */
+	:global(main button) {
+		background: none;
+		border: none;
+		font-size: 1em;
+		padding: 0;
+		cursor: pointer;
+		text-decoration: underline;
+	}
 	
 	main {
 		flex: 1;

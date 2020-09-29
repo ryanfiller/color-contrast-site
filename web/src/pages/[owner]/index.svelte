@@ -98,7 +98,7 @@
         {/each}
 			</ul>
 		{:else}
-			<p>uh oh, you have no color palettes. create one!</p>
+			<p>uh oh, you have no color palettes. <button on:click={() => {$actions.current='addPalette'}}>create one!</button></p>
 		{/if}
 	{:catch error}
 		uh oh, no user with that name.

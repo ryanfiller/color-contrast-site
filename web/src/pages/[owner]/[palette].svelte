@@ -98,7 +98,7 @@
 		{#if $data.colors.length}
       <Palette />
 		{:else}
-			<p>uh oh, this palette doesn't have any colors yet.</p>
+			<p>uh oh, this palette doesn't have any colors yet. <button on:click={() => {$actions.current='addColor'}}>add one!</button></p>
 		{/if}
 	{:catch error}
 		uh oh, no palette with that name.
