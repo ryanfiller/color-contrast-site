@@ -170,5 +170,5 @@
 	{#if !!$actions.current}
 		<ActionsArea />
 	{/if}
-	<span><a href='http://ryanfiller.com'>ryanfiller.com</a></span>
+	<span><a href='https://www.ryanfiller.com?link=colors'>ryanfiller.com</a></span>
 </footer>
